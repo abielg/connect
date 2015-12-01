@@ -25,6 +25,14 @@
 		B281AFBC1C0D8011003C4290 /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = B281AFBB1C0D8011003C4290 /* libsqlite3.tbd */; };
 		B281AFBF1C0D8682003C4290 /* LogInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B281AFBE1C0D8682003C4290 /* LogInViewController.swift */; };
 		B281AFC11C0D8C39003C4290 /* UserProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B281AFC01C0D8C39003C4290 /* UserProfileView.swift */; };
+		B281AFC51C0D9A4A003C4290 /* default_profile.png in Resources */ = {isa = PBXBuildFile; fileRef = B281AFC41C0D9A4A003C4290 /* default_profile.png */; };
+		B281AFC71C0DA294003C4290 /* snapchat_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = B281AFC61C0DA294003C4290 /* snapchat_icon.png */; };
+		B281AFC91C0DA2C7003C4290 /* instagram_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = B281AFC81C0DA2C7003C4290 /* instagram_icon.png */; };
+		B281AFCB1C0DA39A003C4290 /* email_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = B281AFCA1C0DA39A003C4290 /* email_icon.png */; };
+		B281AFCD1C0DA3BD003C4290 /* phone_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = B281AFCC1C0DA3BD003C4290 /* phone_icon.png */; };
+		B281AFD01C0DA467003C4290 /* facebook_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = B281AFCE1C0DA467003C4290 /* facebook_icon.png */; };
+		B281AFD11C0DA467003C4290 /* twitter_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = B281AFCF1C0DA467003C4290 /* twitter_icon.png */; };
+		B281AFD31C0DA84D003C4290 /* UserProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B281AFD21C0DA84D003C4290 /* UserProfileViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -48,6 +56,14 @@
 		B281AFBB1C0D8011003C4290 /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
 		B281AFBE1C0D8682003C4290 /* LogInViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LogInViewController.swift; path = ../LogInViewController.swift; sourceTree = "<group>"; };
 		B281AFC01C0D8C39003C4290 /* UserProfileView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UserProfileView.swift; path = ../UserProfileView.swift; sourceTree = "<group>"; };
+		B281AFC41C0D9A4A003C4290 /* default_profile.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = default_profile.png; sourceTree = "<group>"; };
+		B281AFC61C0DA294003C4290 /* snapchat_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = snapchat_icon.png; sourceTree = "<group>"; };
+		B281AFC81C0DA2C7003C4290 /* instagram_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = instagram_icon.png; sourceTree = "<group>"; };
+		B281AFCA1C0DA39A003C4290 /* email_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = email_icon.png; sourceTree = "<group>"; };
+		B281AFCC1C0DA3BD003C4290 /* phone_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = phone_icon.png; sourceTree = "<group>"; };
+		B281AFCE1C0DA467003C4290 /* facebook_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = facebook_icon.png; sourceTree = "<group>"; };
+		B281AFCF1C0DA467003C4290 /* twitter_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = twitter_icon.png; sourceTree = "<group>"; };
+		B281AFD21C0DA84D003C4290 /* UserProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UserProfileViewController.swift; path = ../UserProfileViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -93,8 +109,10 @@
 		B281AF921C0D7DF1003C4290 /* Connect */ = {
 			isa = PBXGroup;
 			children = (
+				B281AFC31C0D9A40003C4290 /* Images */,
 				B281AF931C0D7DF1003C4290 /* AppDelegate.swift */,
 				B281AFBE1C0D8682003C4290 /* LogInViewController.swift */,
+				B281AFD21C0DA84D003C4290 /* UserProfileViewController.swift */,
 				B281AFC01C0D8C39003C4290 /* UserProfileView.swift */,
 				B281AF971C0D7DF1003C4290 /* Main.storyboard */,
 				B281AFC21C0D8C52003C4290 /* Supporting Files */,
@@ -129,6 +147,20 @@
 				B281AF9F1C0D7DF1003C4290 /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		B281AFC31C0D9A40003C4290 /* Images */ = {
+			isa = PBXGroup;
+			children = (
+				B281AFCE1C0DA467003C4290 /* facebook_icon.png */,
+				B281AFCF1C0DA467003C4290 /* twitter_icon.png */,
+				B281AFCC1C0DA3BD003C4290 /* phone_icon.png */,
+				B281AFCA1C0DA39A003C4290 /* email_icon.png */,
+				B281AFC81C0DA2C7003C4290 /* instagram_icon.png */,
+				B281AFC61C0DA294003C4290 /* snapchat_icon.png */,
+				B281AFC41C0D9A4A003C4290 /* default_profile.png */,
+			);
+			name = Images;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -190,8 +222,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				B281AF9E1C0D7DF1003C4290 /* LaunchScreen.storyboard in Resources */,
+				B281AFD01C0DA467003C4290 /* facebook_icon.png in Resources */,
 				B281AF9B1C0D7DF1003C4290 /* Assets.xcassets in Resources */,
 				B281AF991C0D7DF1003C4290 /* Main.storyboard in Resources */,
+				B281AFD11C0DA467003C4290 /* twitter_icon.png in Resources */,
+				B281AFCD1C0DA3BD003C4290 /* phone_icon.png in Resources */,
+				B281AFC51C0D9A4A003C4290 /* default_profile.png in Resources */,
+				B281AFC71C0DA294003C4290 /* snapchat_icon.png in Resources */,
+				B281AFC91C0DA2C7003C4290 /* instagram_icon.png in Resources */,
+				B281AFCB1C0DA39A003C4290 /* email_icon.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -203,6 +242,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B281AF941C0D7DF1003C4290 /* AppDelegate.swift in Sources */,
+				B281AFD31C0DA84D003C4290 /* UserProfileViewController.swift in Sources */,
 				B281AFC11C0D8C39003C4290 /* UserProfileView.swift in Sources */,
 				B281AFBF1C0D8682003C4290 /* LogInViewController.swift in Sources */,
 			);
