@@ -405,18 +405,7 @@
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HvL-nB-p5M">
                                                 <rect key="frame" x="0.0" y="0.0" width="299" height="117"/>
                                                 <subviews>
-                                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="BJD-Tb-i8q">
-                                                        <rect key="frame" x="5" y="49" width="289" height="20"/>
-                                                        <color key="backgroundColor" red="0.39215686274509803" green="0.28627450980392155" blue="0.23137254901960785" alpha="1" colorSpace="calibratedRGB"/>
-                                                        <constraints>
-                                                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="20" id="TiT-Ga-i1j"/>
-                                                            <constraint firstAttribute="height" constant="20" id="i3l-Y4-Iw4"/>
-                                                        </constraints>
-                                                        <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                        <textInputTraits key="textInputTraits"/>
-                                                    </textField>
-                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="instagram_icon.png" translatesAutoresizingMaskIntoConstraints="NO" id="u8R-Vb-3cd">
+                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="address_icon.png" translatesAutoresizingMaskIntoConstraints="NO" id="u8R-Vb-3cd">
                                                         <rect key="frame" x="130" y="39" width="40" height="40"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" constant="40" id="f5E-Lj-YnO"/>
@@ -426,21 +415,18 @@
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jIY-AS-Tad">
                                                         <rect key="frame" x="15" y="15" width="269" height="87"/>
                                                         <connections>
-                                                            <action selector="enterAccount:" destination="hEl-wI-oZL" eventType="touchUpInside" id="HBB-Qy-e45"/>
+                                                            <action selector="enterAddress:" destination="hEl-wI-oZL" eventType="touchUpInside" id="WhW-If-FKz"/>
                                                         </connections>
                                                     </button>
                                                 </subviews>
                                                 <color key="backgroundColor" red="0.46903205730264552" green="0.35671944068249878" blue="0.29657726342594976" alpha="1" colorSpace="calibratedRGB"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="trailing" secondItem="BJD-Tb-i8q" secondAttribute="trailing" constant="5" id="1Zq-21-aNf"/>
                                                     <constraint firstAttribute="trailing" secondItem="jIY-AS-Tad" secondAttribute="trailing" constant="15" id="7VJ-X8-ASZ"/>
                                                     <constraint firstItem="u8R-Vb-3cd" firstAttribute="centerX" secondItem="HvL-nB-p5M" secondAttribute="centerX" id="9Ik-ZS-Oc2"/>
                                                     <constraint firstItem="jIY-AS-Tad" firstAttribute="top" secondItem="HvL-nB-p5M" secondAttribute="top" constant="15" id="FFc-iD-Z0c"/>
                                                     <constraint firstItem="jIY-AS-Tad" firstAttribute="leading" secondItem="HvL-nB-p5M" secondAttribute="leading" constant="15" id="ONg-Nn-Gze"/>
                                                     <constraint firstAttribute="bottom" secondItem="jIY-AS-Tad" secondAttribute="bottom" constant="15" id="Po3-66-EeO"/>
-                                                    <constraint firstItem="BJD-Tb-i8q" firstAttribute="leading" secondItem="HvL-nB-p5M" secondAttribute="leading" constant="5" id="Shd-df-o6Y"/>
                                                     <constraint firstItem="u8R-Vb-3cd" firstAttribute="centerY" secondItem="HvL-nB-p5M" secondAttribute="centerY" id="TlP-wr-47Z"/>
-                                                    <constraint firstItem="BJD-Tb-i8q" firstAttribute="centerY" secondItem="HvL-nB-p5M" secondAttribute="centerY" id="qWd-Nd-5Bl"/>
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Jo5-ny-rBT">
@@ -501,8 +487,8 @@
                     </view>
                     <navigationItem key="navigationItem" title="abiel_g" id="wOK-xX-9gW"/>
                     <connections>
+                        <outlet property="addressView" destination="HvL-nB-p5M" id="t7S-mO-Woo"/>
                         <outlet property="facebookView" destination="jzp-V1-Ahh" id="Dzj-zr-HgH"/>
-                        <outlet property="instagramView" destination="HvL-nB-p5M" id="ypA-gO-N6P"/>
                         <outlet property="mailView" destination="dSp-3y-717" id="pM7-Oz-sr2"/>
                         <outlet property="nameLabel" destination="iWc-fG-8oV" id="Nyc-7F-VJh"/>
                         <outlet property="phoneView" destination="u5q-YE-8S2" id="Fbo-Oe-awa"/>
@@ -513,7 +499,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jik-hg-bb0" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1943" y="1314"/>
+            <point key="canvasLocation" x="1781" y="1321"/>
         </scene>
         <!--Connect-->
         <scene sceneID="xit-Jh-CdU">
@@ -555,12 +541,12 @@
         </scene>
     </scenes>
     <resources>
+        <image name="address_icon.png" width="700" height="631"/>
         <image name="connect_icon.png" width="35" height="34"/>
         <image name="contacts_icon.png" width="32" height="35"/>
         <image name="default_profile.png" width="350" height="263"/>
         <image name="email_icon.png" width="700" height="620"/>
         <image name="facebook_icon.png" width="700" height="600"/>
-        <image name="instagram_icon.png" width="1000" height="1000"/>
         <image name="phone_icon.png" width="512" height="512"/>
         <image name="profile_icon.png" width="35" height="34"/>
         <image name="search_icon.png" width="35" height="34"/>

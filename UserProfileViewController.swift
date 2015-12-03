@@ -22,7 +22,7 @@ class UserProfileViewController: UIViewController, UITextFieldDelegate, UIImageP
     @IBOutlet weak var twitterView: UIView!
     @IBOutlet weak var phoneView: UIView!
     @IBOutlet weak var mailView: UIView!
-    @IBOutlet weak var instagramView: UIView!
+    @IBOutlet weak var addressView: UIView!
     @IBOutlet weak var snapchatView: UIView!
     
     @IBAction func enterAccount(sender: AnyObject) {
@@ -45,8 +45,6 @@ class UserProfileViewController: UIViewController, UITextFieldDelegate, UIImageP
             button.removeFromSuperview()
         }
     }
-    
-    
     
     override func viewDidLoad() {
         self.navigationItem.title = user!["username"] as? String
@@ -101,6 +99,11 @@ class UserProfileViewController: UIViewController, UITextFieldDelegate, UIImageP
                 //Congrats dude its saved
             }
         }
+    }
+    
+    @IBAction func enterAddress(sender: AnyObject) {
+        let alert = UIAlertController(title: "Home Address", message: nil, preferredStyle: .ActionSheet)
+        alert.addAction(UIAlertAction(title: "Cancel", style: .Cancel, handler: nil))
     }
     
     @IBAction func changePicture(sender: AnyObject) {
@@ -158,7 +161,7 @@ class UserProfileViewController: UIViewController, UITextFieldDelegate, UIImageP
     
     
     func configureTextFields() {
-        for view in [facebookView, twitterView, phoneView, mailView, instagramView, snapchatView]{
+        for view in [facebookView, twitterView, phoneView, mailView, snapchatView]{
             for subview in view.subviews{
                 if let field = subview as? UITextField{
                     field.delegate = self
@@ -178,10 +181,6 @@ class UserProfileViewController: UIViewController, UITextFieldDelegate, UIImageP
                     case mailView:
                         if user!["mail"] != nil {
                             field.text = user!["mail"] as? String
-                        }
-                    case instagramView:
-                        if user!["instagram"] != nil {
-                            field.text = user!["instagram"] as? String
                         }
                     case snapchatView:
                         if user!["snapchat"] != nil {
@@ -208,8 +207,6 @@ class UserProfileViewController: UIViewController, UITextFieldDelegate, UIImageP
                     user!["phone"] = textField.text
                 case mailView:
                     user!["mail"] = textField.text
-                case instagramView:
-                    user!["instagram"] = textField.text
                 case snapchatView:
                     user!["snapchat"] = textField.text
                 default: break

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B2541E5B1C109DCF0040D0FC /* address_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = B2541E5A1C109DCF0040D0FC /* address_icon.png */; };
 		B281AF941C0D7DF1003C4290 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B281AF931C0D7DF1003C4290 /* AppDelegate.swift */; };
 		B281AF991C0D7DF1003C4290 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B281AF971C0D7DF1003C4290 /* Main.storyboard */; };
 		B281AF9B1C0D7DF1003C4290 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B281AF9A1C0D7DF1003C4290 /* Assets.xcassets */; };
@@ -40,6 +41,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		B2541E5A1C109DCF0040D0FC /* address_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = address_icon.png; sourceTree = "<group>"; };
 		B281AF901C0D7DF1003C4290 /* Connect.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Connect.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B281AF931C0D7DF1003C4290 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B281AF981C0D7DF1003C4290 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -187,6 +189,7 @@
 				B281AFCA1C0DA39A003C4290 /* email_icon.png */,
 				B281AFC81C0DA2C7003C4290 /* instagram_icon.png */,
 				B281AFC61C0DA294003C4290 /* snapchat_icon.png */,
+				B2541E5A1C109DCF0040D0FC /* address_icon.png */,
 			);
 			name = "Social Media Icons";
 			sourceTree = "<group>";
@@ -253,6 +256,7 @@
 				B281AF9E1C0D7DF1003C4290 /* LaunchScreen.storyboard in Resources */,
 				B281AFD01C0DA467003C4290 /* facebook_icon.png in Resources */,
 				B281AF9B1C0D7DF1003C4290 /* Assets.xcassets in Resources */,
+				B2541E5B1C109DCF0040D0FC /* address_icon.png in Resources */,
 				B2FCE34B1C0EBB8F00594687 /* profile_icon.png in Resources */,
 				B2FCE34C1C0EBB8F00594687 /* contacts_icon.png in Resources */,
 				B281AF991C0D7DF1003C4290 /* Main.storyboard in Resources */,
