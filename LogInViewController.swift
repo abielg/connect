@@ -31,7 +31,8 @@ class LogInViewController: UIViewController {
             (succeeded: Bool, error: NSError?) -> Void in
             if let error = error {
                 if let errorString = error.userInfo["error"] as? String{
-                    self.sendAlert(errorString)
+                    let alert = UIAlertController.createAlert(errorString)
+                    self.presentViewController(alert, animated: true, completion: nil)
                 }
                 return
             } else {
@@ -52,7 +53,8 @@ class LogInViewController: UIViewController {
             } else {
                 if let error = error{
                     if let errorString = error.userInfo["error"] as? String{
-                        self.sendAlert(errorString)
+                        let alert = UIAlertController.createAlert(errorString)
+                        self.presentViewController(alert, animated: true, completion: nil)
                     }
                 }
             }
@@ -61,28 +63,22 @@ class LogInViewController: UIViewController {
     
     func fieldNotCompleted() -> Bool {
         if usernameTextField.text == "" {
-            sendAlert("Please type in a username")
+            let alert = UIAlertController.createAlert("Please type in a username")
+            presentViewController(alert, animated: true, completion: nil)
             return true
         }
         
         if passwordTextField.text == "" {
-            sendAlert("Please type in a password")
+            let alert = UIAlertController.createAlert("Please type in a password")
+            presentViewController(alert, animated: true, completion: nil)
             return true
         }
         return false
     }
     
-    
-    func sendAlert(title: String) {
-        let alert = UIAlertController(title: "\(title)", message: nil, preferredStyle: .Alert)
-        alert.addAction(UIAlertAction(title: "Ok",style: .Cancel,handler: nil))
-        presentViewController(alert, animated: true, completion: nil)
-    }
-    
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "logInSuccessful" {
             if let tabController = segue.destinationViewController as? UITabBarController {
-                print(tabController.viewControllers!)
                 if let nvc = tabController.viewControllers!.first as? UINavigationController{
                     if let profileVC = nvc.viewControllers.first as? UserProfileViewController{
                         if let parseUser = sender as? PFUser{
@@ -99,3 +95,18 @@ class LogInViewController: UIViewController {
     }
     
 }
+
+extension UIAlertController{
+    class func createAlert(title: String)->UIAlertController {
+        let alert = UIAlertController(title: "\(title)", message: nil, preferredStyle: .Alert)
+        alert.addAction(UIAlertAction(title: "Ok",style: .Cancel,handler: nil))
+        return alert
+    }
+}
+
+
+
+
+
+
+

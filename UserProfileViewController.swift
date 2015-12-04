@@ -9,10 +9,12 @@
 import UIKit
 import Parse
 import MobileCoreServices
+import CoreLocation
 
-class UserProfileViewController: UIViewController, UITextFieldDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+class UserProfileViewController: UIViewController, UITextFieldDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, CLLocationManagerDelegate {
     
     var user: PFUser?
+    var mapLocation: CLLocation?
     
     @IBOutlet weak var nameLabel: UILabel!
     
@@ -25,26 +27,6 @@ class UserProfileViewController: UIViewController, UITextFieldDelegate, UIImageP
     @IBOutlet weak var addressView: UIView!
     @IBOutlet weak var snapchatView: UIView!
     
-    @IBAction func enterAccount(sender: AnyObject) {
-        var textfield = UITextField()
-        var image = UIImageView()
-        
-        if let button = sender as? UIButton{
-            if let superView = button.superview {
-                for subview in superView.subviews{
-                    if let field = subview as? UITextField{
-                        textfield = field
-                    } else if let img = subview as? UIImageView{
-                        image = img
-                    }
-                }
-                UIView.animateWithDuration(1.0, delay: 0.0, options: .CurveEaseIn,
-                    animations: { image.alpha = 0.0 },
-                    completion:{ if $0 { textfield.hidden = false } })
-            }
-            button.removeFromSuperview()
-        }
-    }
     
     override func viewDidLoad() {
         self.navigationItem.title = user!["username"] as? String
@@ -66,99 +48,29 @@ class UserProfileViewController: UIViewController, UITextFieldDelegate, UIImageP
     }
     
     
-    @IBAction func changeNameAction(sender: AnyObject) {
-        changeDisplayName()
-    }
+    // MARK: Entering Account Data
+    //////////////// Capture data enter in textfields by user ////////////////
     
-    func changeDisplayName(){
-        let alert = UIAlertController(
-            title: "What's your name?",
-            message: "How do you want to appear to your contacts?",
-            preferredStyle: .Alert)
-        alert.addTextFieldWithConfigurationHandler { (textField) in
-            textField.placeholder = "Name"
-        }
-        alert.addAction(UIAlertAction(title: "Ok",style: .Default) {
-            (action: UIAlertAction) -> Void in
-            if let tf = alert.textFields?.first{
-                self.user!["name"] = tf.text
-                self.nameLabel.text = tf.text
-                self.saveUserToParse()
-            }
-            })
-
-        presentViewController(alert, animated: true, completion: nil)
-    }
-    
-    func saveUserToParse(){
-        user!.saveInBackgroundWithBlock {
-            (success: Bool, error: NSError?) -> Void in
-            if (!success) {
-                print(error?.description)
-            } else {
-                //Congrats dude its saved
-            }
-        }
-    }
-    
-    @IBAction func enterAddress(sender: AnyObject) {
-        let alert = UIAlertController(title: "Home Address", message: nil, preferredStyle: .ActionSheet)
-        alert.addAction(UIAlertAction(title: "Cancel", style: .Cancel, handler: nil))
-    }
-    
-    @IBAction func changePicture(sender: AnyObject) {
-        let picker = UIImagePickerController()
-        picker.delegate = self
-        let alert = UIAlertController(title: "Change Profile Picture", message: nil, preferredStyle: .ActionSheet)
-        alert.addAction(UIAlertAction(title: "Take Picture", style: .Default) {
-            (action: UIAlertAction) -> Void in
-            if UIImagePickerController.isSourceTypeAvailable(.Camera){
-                picker.sourceType = .Camera
-                picker.allowsEditing = true
-                if let types = UIImagePickerController.availableMediaTypesForSourceType(.Camera){
-                    if types.contains(kUTTypeImage as String){
-                        picker.mediaTypes = [kUTTypeImage as String]
-                        self.presentViewController(picker, animated: true, completion: nil)
+    @IBAction func enterAccount(sender: AnyObject) {
+        var textfield = UITextField()
+        var image = UIImageView()
+        
+        if let button = sender as? UIButton{
+            if let superView = button.superview {
+                for subview in superView.subviews{
+                    if let field = subview as? UITextField{
+                        textfield = field
+                    } else if let img = subview as? UIImageView{
+                        image = img
                     }
                 }
+                UIView.animateWithDuration(1.0, delay: 0.0, options: .CurveEaseIn,
+                    animations: { image.alpha = 0.0 },
+                    completion:{ if $0 { textfield.hidden = false } })
             }
-        })
-        
-        alert.addAction(UIAlertAction(title: "Choose From Library", style: .Default){
-            (action: UIAlertAction) -> Void in
-            if UIImagePickerController.isSourceTypeAvailable(.SavedPhotosAlbum){
-                picker.sourceType = .SavedPhotosAlbum
-                if let types = UIImagePickerController.availableMediaTypesForSourceType(.SavedPhotosAlbum){
-                    if types.contains(kUTTypeImage as String){
-                        picker.mediaTypes = [kUTTypeImage as String]
-                        self.presentViewController(picker, animated: true, completion: nil)
-                    }
-                }
-            }
-        })
-        
-        alert.addAction(UIAlertAction(title: "Cancel", style: .Cancel, handler: nil))
-        presentViewController(alert, animated: true, completion: nil)
-    }
-    
-    
-    func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
-        profilePic.image = (info[UIImagePickerControllerEditedImage] ?? info[UIImagePickerControllerOriginalImage]) as? UIImage
-        if let image = profilePic.image{
-            let imageData = UIImagePNGRepresentation(image)
-            let imageFile = PFFile(data: imageData!)
-            user!["profilePicture"] = imageFile
-            saveUserToParse()
+            button.removeFromSuperview()
         }
-
-        
-        dismissViewControllerAnimated(true, completion: nil)
     }
-    
-    func imagePickerControllerDidCancel(uiipc: UIImagePickerController) {
-        dismissViewControllerAnimated(true, completion: nil)
-    }
-    
     
     func configureTextFields() {
         for view in [facebookView, twitterView, phoneView, mailView, snapchatView]{
@@ -216,4 +128,148 @@ class UserProfileViewController: UIViewController, UITextFieldDelegate, UIImageP
         }
         return true
     }
+    
+    
+    @IBAction func changeNameAction(sender: AnyObject) {
+        changeDisplayName()
+    }
+    
+    func changeDisplayName(){
+        let alert = UIAlertController(
+            title: "What's your name?",
+            message: "How do you want to appear to your contacts?",
+            preferredStyle: .Alert)
+        alert.addTextFieldWithConfigurationHandler { (textField) in
+            textField.placeholder = "Name"
+        }
+        alert.addAction(UIAlertAction(title: "Ok",style: .Default) {
+            (action: UIAlertAction) -> Void in
+            if let tf = alert.textFields?.first{
+                self.user!["name"] = tf.text
+                self.nameLabel.text = tf.text
+                self.saveUserToParse()
+            }
+            })
+
+        presentViewController(alert, animated: true, completion: nil)
+    }
+    
+    func saveUserToParse(){
+        user!.saveInBackgroundWithBlock {
+            (success: Bool, error: NSError?) -> Void in
+            if (!success) {
+                print(error?.description)
+            }
+        }
+    }
+    
+    
+    
+    // MARK: View/Record Address
+    //////////////// View or record new user's address ////////////////
+    let manager = CLLocationManager()
+    @IBAction func enterAddress(sender: AnyObject) {
+        
+        manager.delegate = self
+        manager.desiredAccuracy = kCLLocationAccuracyBest
+        manager.distanceFilter = kCLDistanceFilterNone //meters
+        
+        if CLLocationManager.authorizationStatus() == .NotDetermined{
+            manager.requestWhenInUseAuthorization()
+        }
+        
+        if CLLocationManager.authorizationStatus() == .AuthorizedWhenInUse || CLLocationManager.authorizationStatus() == .AuthorizedAlways{
+            if CLLocationManager.locationServicesEnabled() {
+                manager.requestLocation()
+                //manager.startUpdatingLocation()
+                print("started")
+            } else {
+                let alert = UIAlertController.createAlert("Location services are not enabled for your device.")
+                self.presentViewController(alert, animated: true, completion: nil)
+            }
+            
+        } else {
+             let alert = UIAlertController.createAlert("Map services not authorized for your device.")
+            self.presentViewController(alert, animated: true, completion: nil)
+        }
+    }
+    
+    func locationManager(manager: CLLocationManager, didFailWithError error: NSError) {
+        print(error)
+    }
+    
+    func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        mapLocation = locations.first
+        print("got em")
+        performSegueWithIdentifier("showMap", sender: user)
+    }
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == "showMap"{
+            if let mapViewController = segue.destinationViewController as? MapViewController{
+                mapViewController.location = mapLocation!
+                mapViewController.username = user!["username"] as? String
+                mapViewController.profilePic = profilePic.image
+            }
+        }
+    }
+    
+    
+    
+    // MARK: Change Display Pic
+    //////////////// Change user's display pic ////////////////
+    
+    @IBAction func changePicture(sender: AnyObject) {
+        let picker = UIImagePickerController()
+        picker.delegate = self
+        let alert = UIAlertController(title: "Change Profile Picture", message: nil, preferredStyle: .ActionSheet)
+        alert.addAction(UIAlertAction(title: "Take Picture", style: .Default) {
+            (action: UIAlertAction) -> Void in
+            if UIImagePickerController.isSourceTypeAvailable(.Camera){
+                picker.sourceType = .Camera
+                picker.allowsEditing = true
+                if let types = UIImagePickerController.availableMediaTypesForSourceType(.Camera){
+                    if types.contains(kUTTypeImage as String){
+                        picker.mediaTypes = [kUTTypeImage as String]
+                        self.presentViewController(picker, animated: true, completion: nil)
+                    }
+                }
+            }
+        })
+        
+        alert.addAction(UIAlertAction(title: "Choose From Library", style: .Default){
+            (action: UIAlertAction) -> Void in
+            if UIImagePickerController.isSourceTypeAvailable(.SavedPhotosAlbum){
+                picker.sourceType = .SavedPhotosAlbum
+                if let types = UIImagePickerController.availableMediaTypesForSourceType(.SavedPhotosAlbum){
+                    if types.contains(kUTTypeImage as String){
+                        picker.mediaTypes = [kUTTypeImage as String]
+                        self.presentViewController(picker, animated: true, completion: nil)
+                    }
+                }
+            }
+        })
+        
+        alert.addAction(UIAlertAction(title: "Cancel", style: .Cancel, handler: nil))
+        presentViewController(alert, animated: true, completion: nil)
+    }
+    
+    
+    func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
+        profilePic.image = (info[UIImagePickerControllerEditedImage] ?? info[UIImagePickerControllerOriginalImage]) as? UIImage
+        if let image = profilePic.image{
+            let imageData = UIImagePNGRepresentation(image)
+            let imageFile = PFFile(data: imageData!)
+            user!["profilePicture"] = imageFile
+            saveUserToParse()
+        }
+
+        
+        dismissViewControllerAnimated(true, completion: nil)
+    }
+    
+    func imagePickerControllerDidCancel(uiipc: UIImagePickerController) {
+        dismissViewControllerAnimated(true, completion: nil)
+    }
+    
 }

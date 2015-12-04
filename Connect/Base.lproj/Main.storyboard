@@ -80,7 +80,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-77" y="161"/>
+            <point key="canvasLocation" x="-2485" y="-495"/>
         </scene>
         <!--contactTabBarController-->
         <scene sceneID="qcl-sG-Aex">
@@ -100,7 +100,7 @@
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iYZ-LO-bIT" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="613" y="257"/>
+            <point key="canvasLocation" x="-1795" y="-399"/>
         </scene>
         <!--Contacts-->
         <scene sceneID="YM0-NS-OkS">
@@ -129,7 +129,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fxS-Ci-FGH" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1397" y="-818"/>
+            <point key="canvasLocation" x="-1011" y="-1474"/>
         </scene>
         <!--Search-->
         <scene sceneID="4ym-VT-jmn">
@@ -158,7 +158,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Pdv-y7-pt5" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1397" y="-131"/>
+            <point key="canvasLocation" x="-1011" y="-787"/>
         </scene>
         <!--abiel_g-->
         <scene sceneID="lV1-t8-reJ">
@@ -495,11 +495,70 @@
                         <outlet property="profilePic" destination="725-ZH-WQm" id="R1j-9U-VkF"/>
                         <outlet property="snapchatView" destination="Jo5-ny-rBT" id="yrm-pu-cMa"/>
                         <outlet property="twitterView" destination="M0L-to-nvk" id="PkV-pM-Lhy"/>
+                        <segue destination="fQM-Ev-AhP" kind="show" identifier="showMap" id="4qY-6D-5Oo"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jik-hg-bb0" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1781" y="1321"/>
+            <point key="canvasLocation" x="-607" y="795"/>
+        </scene>
+        <!--Map View Controller-->
+        <scene sceneID="b4x-HS-rXr">
+            <objects>
+                <viewController id="fQM-Ev-AhP" customClass="MapViewController" customModule="Connect" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="l3e-aQ-miO"/>
+                        <viewControllerLayoutGuide type="bottom" id="2yj-Uc-XDw"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="fTG-Ck-TnR">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="hWJ-ht-dQc">
+                                <rect key="frame" x="0.0" y="64" width="600" height="487"/>
+                            </mapView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oe5-zZ-V4U">
+                                <rect key="frame" x="423" y="84" width="157" height="33"/>
+                                <color key="backgroundColor" red="0.80952380952380953" green="0.80952380952380953" blue="0.80952380952380953" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="25" id="4Kn-2t-8Bz"/>
+                                    <constraint firstAttribute="width" constant="157" id="rr1-u4-2uV"/>
+                                    <constraint firstAttribute="height" constant="33" id="w0r-NH-dYM"/>
+                                    <constraint firstAttribute="width" constant="97" id="y6k-eM-xE9"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
+                                <state key="normal" title="Update Your Address">
+                                    <color key="titleColor" red="0.031994047619047672" green="0.031994047619047672" blue="0.031994047619047672" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="4Kn-2t-8Bz"/>
+                                        <exclude reference="y6k-eM-xE9"/>
+                                    </mask>
+                                </variation>
+                                <connections>
+                                    <action selector="updateAddress:" destination="fQM-Ev-AhP" eventType="touchUpInside" id="Asl-Py-gfs"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="hWJ-ht-dQc" secondAttribute="trailing" id="6fA-6M-Fgf"/>
+                            <constraint firstItem="hWJ-ht-dQc" firstAttribute="top" secondItem="l3e-aQ-miO" secondAttribute="bottom" id="Nno-iq-4tq"/>
+                            <constraint firstItem="hWJ-ht-dQc" firstAttribute="leading" secondItem="fTG-Ck-TnR" secondAttribute="leading" id="V9E-dH-fSN"/>
+                            <constraint firstItem="hWJ-ht-dQc" firstAttribute="bottom" secondItem="2yj-Uc-XDw" secondAttribute="top" id="dqM-mf-aYV"/>
+                            <constraint firstItem="oe5-zZ-V4U" firstAttribute="top" secondItem="l3e-aQ-miO" secondAttribute="bottom" constant="20" id="qK7-EA-qqm"/>
+                            <constraint firstAttribute="trailing" secondItem="oe5-zZ-V4U" secondAttribute="trailing" constant="20" id="y3U-h7-Dqk"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="mapView" destination="hWJ-ht-dQc" id="5KV-tj-amr"/>
+                        <outlet property="updateAddressButton" destination="oe5-zZ-V4U" id="IeG-kG-0Uh"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="g5o-KE-1MZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-691" y="1514"/>
         </scene>
         <!--Connect-->
         <scene sceneID="xit-Jh-CdU">
@@ -518,7 +577,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="CTQ-oy-8gL" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1397" y="543"/>
+            <point key="canvasLocation" x="-1011" y="-113"/>
         </scene>
         <!--Me-->
         <scene sceneID="Hsa-Yu-YD0">
@@ -537,14 +596,14 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="R5x-rI-q3N" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="995" y="1321"/>
+            <point key="canvasLocation" x="-1413" y="665"/>
         </scene>
     </scenes>
     <resources>
         <image name="address_icon.png" width="700" height="631"/>
         <image name="connect_icon.png" width="35" height="34"/>
         <image name="contacts_icon.png" width="32" height="35"/>
-        <image name="default_profile.png" width="350" height="263"/>
+        <image name="default_profile.png" width="263" height="263"/>
         <image name="email_icon.png" width="700" height="620"/>
         <image name="facebook_icon.png" width="700" height="600"/>
         <image name="phone_icon.png" width="512" height="512"/>
