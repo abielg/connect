@@ -17,17 +17,18 @@ class ContactsTableViewController: UITableViewController {
         }
     }
     var contactCount = 0
+    var selectedRow: Int?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationItem.title = "Contacts"
         contactsArray = user!["contacts"] as! [PFUser]
-        print(contactsArray)
     }
     
     override func viewDidAppear(animated: Bool) {
         if contactCount != user!["contacts"].count{
             contactsArray = user!["contacts"] as! [PFUser]
+            contactCount = contactsArray.count
         }
     }
     
@@ -41,12 +42,29 @@ class ContactsTableViewController: UITableViewController {
         //referenced: http://stackoverflow.com/questions/33038063/ios-9-parse-fetchifneeded-error-in-swift-2-0
         
         let cell = tableView.dequeueReusableCellWithIdentifier("contactCell")
-        cell!.textLabel!.text = contactInfo["name"] as? String
+        if let name = contactInfo["name"] as? String where name != ""{
+            cell!.textLabel!.text = name
+        } else {
+            cell?.textLabel!.text = contactInfo["username"] as? String
+        }
         return cell!
     }
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return contactsArray.count
+    }
+    
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        selectedRow = indexPath.row
+        performSegueWithIdentifier("showContactDetails", sender: tableView.cellForRowAtIndexPath(indexPath))
+    }
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == "showContactDetails"{
+            if let contactDetailTVC = segue.destinationViewController as? ContactDetailTableViewController{
+                contactDetailTVC.user = contactsArray[selectedRow!] as? PFUser
+            }
+        }
     }
     
 }

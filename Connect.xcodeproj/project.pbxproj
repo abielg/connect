@@ -44,6 +44,7 @@
 		B2C8E5F51C126E3A00065F99 /* SearchTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2C8E5F41C126E3A00065F99 /* SearchTableCell.swift */; };
 		B2C8E5F71C127AE900065F99 /* facebook_icon_small.png in Resources */ = {isa = PBXBuildFile; fileRef = B2C8E5F61C127AE900065F99 /* facebook_icon_small.png */; };
 		B2C8E5FD1C12CEDF00065F99 /* ContactsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2C8E5FC1C12CEDF00065F99 /* ContactsTableViewController.swift */; };
+		B2C8E6011C135C0100065F99 /* ContactDetailTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2C8E6001C135C0100065F99 /* ContactDetailTableViewController.swift */; };
 		B2FCE3491C0EBB8F00594687 /* connect_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = B2FCE3451C0EBB8F00594687 /* connect_icon.png */; };
 		B2FCE34A1C0EBB8F00594687 /* search_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = B2FCE3461C0EBB8F00594687 /* search_icon.png */; };
 		B2FCE34B1C0EBB8F00594687 /* profile_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = B2FCE3471C0EBB8F00594687 /* profile_icon.png */; };
@@ -91,6 +92,7 @@
 		B2C8E5F41C126E3A00065F99 /* SearchTableCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SearchTableCell.swift; path = ../SearchTableCell.swift; sourceTree = "<group>"; };
 		B2C8E5F61C127AE900065F99 /* facebook_icon_small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = facebook_icon_small.png; sourceTree = "<group>"; };
 		B2C8E5FC1C12CEDF00065F99 /* ContactsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ContactsTableViewController.swift; path = ../ContactsTableViewController.swift; sourceTree = "<group>"; };
+		B2C8E6001C135C0100065F99 /* ContactDetailTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ContactDetailTableViewController.swift; path = ../ContactDetailTableViewController.swift; sourceTree = "<group>"; };
 		B2FCE3451C0EBB8F00594687 /* connect_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = connect_icon.png; sourceTree = "<group>"; };
 		B2FCE3461C0EBB8F00594687 /* search_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = search_icon.png; sourceTree = "<group>"; };
 		B2FCE3471C0EBB8F00594687 /* profile_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = profile_icon.png; sourceTree = "<group>"; };
@@ -148,6 +150,7 @@
 				B2C8E5DC1C11089A00065F99 /* MapViewController.swift */,
 				B2C8E5DE1C12233E00065F99 /* MapPin.swift */,
 				B2C8E5FC1C12CEDF00065F99 /* ContactsTableViewController.swift */,
+				B2C8E6001C135C0100065F99 /* ContactDetailTableViewController.swift */,
 				B2C8E5E21C124C6500065F99 /* SearchTableViewController.swift */,
 				B2C8E5F41C126E3A00065F99 /* SearchTableCell.swift */,
 				B2FCE34D1C0EDB9D00594687 /* ConnectViewController.swift */,
@@ -333,6 +336,7 @@
 				B2C8E5F51C126E3A00065F99 /* SearchTableCell.swift in Sources */,
 				B2FCE34E1C0EDB9D00594687 /* ConnectViewController.swift in Sources */,
 				B2C8E5FD1C12CEDF00065F99 /* ContactsTableViewController.swift in Sources */,
+				B2C8E6011C135C0100065F99 /* ContactDetailTableViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
