@@ -169,7 +169,6 @@ class UserProfileViewController: UIViewController, UITextFieldDelegate, UIImageP
     //////////////// View or record new user's address ////////////////
     let manager = CLLocationManager()
     @IBAction func enterAddress(sender: AnyObject) {
-        
         manager.delegate = self
         manager.desiredAccuracy = kCLLocationAccuracyBest
         manager.distanceFilter = kCLDistanceFilterNone //meters
