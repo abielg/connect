@@ -64,7 +64,7 @@ class UserProfileViewController: UIViewController, UITextFieldDelegate, UIImageP
                         image = img
                     }
                 }
-                UIView.animateWithDuration(1.0, delay: 0.0, options: .CurveEaseIn,
+                UIView.animateWithDuration(0.4, delay: 0.0, options: .CurveEaseIn,
                     animations: { image.alpha = 0.0 },
                     completion:{ if $0 { textfield.hidden = false } })
             }
@@ -123,7 +123,7 @@ class UserProfileViewController: UIViewController, UITextFieldDelegate, UIImageP
                     user!["snapchat"] = textField.text
                 default: break
                 }
-                saveUserToParse()
+                PFUser.saveUserToParse(user!)
             }
         }
         return true
@@ -147,23 +147,12 @@ class UserProfileViewController: UIViewController, UITextFieldDelegate, UIImageP
             if let tf = alert.textFields?.first{
                 self.user!["name"] = tf.text
                 self.nameLabel.text = tf.text
-                self.saveUserToParse()
+                PFUser.saveUserToParse(self.user!)
             }
             })
 
         presentViewController(alert, animated: true, completion: nil)
     }
-    
-    func saveUserToParse(){
-        user!.saveInBackgroundWithBlock {
-            (success: Bool, error: NSError?) -> Void in
-            if (!success) {
-                print(error?.description)
-            }
-        }
-    }
-    
-    
     
     // MARK: View/Record Address
     //////////////// View or record new user's address ////////////////
@@ -260,7 +249,7 @@ class UserProfileViewController: UIViewController, UITextFieldDelegate, UIImageP
             let imageData = UIImagePNGRepresentation(image)
             let imageFile = PFFile(data: imageData!)
             user!["profilePicture"] = imageFile
-            saveUserToParse()
+            PFUser.saveUserToParse(user!)
         }
 
         
@@ -271,4 +260,15 @@ class UserProfileViewController: UIViewController, UITextFieldDelegate, UIImageP
         dismissViewControllerAnimated(true, completion: nil)
     }
     
+}
+
+extension PFUser{
+    class func saveUserToParse(parseUser: PFUser){
+        parseUser.saveInBackgroundWithBlock {
+            (success: Bool, error: NSError?) -> Void in
+            if (!success) {
+                print(error?.description)
+            }
+        }
+    }
 }
