@@ -8,9 +8,11 @@
 
 import UIKit
 import Parse
+import Contacts
 
 class ContactDetailTableViewController: UITableViewController {
     var user: PFUser?
+    var contactStore = CNContactStore()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -81,9 +83,66 @@ class ContactDetailTableViewController: UITableViewController {
     }
     
     func phoneNumberSelected(phoneNumber: String){
-        let alert = UIAlertController(title: "\(nameLabel.text)'s number", message: phoneNumber, preferredStyle: .Alert)
-        alert.addAction(UIAlertAction(title: "Add to Contacts", style: .Default, handler: nil))
-        alert.addAction(UIAlertAction(title: "Call", style: .Default, handler: nil))
+        let alert = UIAlertController(title: "\(nameLabel.text!)'s number", message: phoneNumber, preferredStyle: .Alert)
+        alert.addAction(UIAlertAction(title: "Call", style: .Default){
+            (action: UIAlertAction) -> Void in
+            let phoneURL = NSURL(string:"tel://\(phoneNumber)")
+            UIApplication.sharedApplication().openURL(phoneURL!)
+            //referenced: http://stackoverflow.com/questions/25117321/iphone-call-from-app-in-swift-xcode-6
+        })
+        alert.addAction(UIAlertAction(title: "Add to Contacts", style: .Default){
+            (action: UIAlertAction) -> Void in
+                self.saveContact()
+            }
+        )
         alert.addAction(UIAlertAction(title: "Cancel", style: .Cancel,handler: nil))
+        presentViewController(alert, animated: true, completion: nil)
+    }
+    
+    func saveContact(){
+        let status = CNContactStore.authorizationStatusForEntityType(.Contacts)
+        if status != CNAuthorizationStatus.Authorized {
+            contactStore.requestAccessForEntityType(.Contacts){
+                (access, error) -> Void in
+                if access {
+                    self.createContact()
+                } else {
+                    let error = UIAlertController.createAlert("Error", withMessage: (error?.description)!)
+                    self.presentViewController(error, animated: true, completion: nil)
+                }
+            }
+        } else {
+            self.createContact()
+        }
+    }
+    
+    func createContact() {
+        let contact = CNMutableContact()
+        contact.contactType = CNContactType.Person
+        //name
+        contact.givenName = (user!["name"] as? String)!
+        //phone
+        let number = CNPhoneNumber(stringValue: user!["phone"] as! String)
+        let phoneCNLV = CNLabeledValue(label: CNLabelPhoneNumberMobile, value: number)
+        contact.phoneNumbers = [phoneCNLV]
+        //picture
+        let data = UIImagePNGRepresentation(profilePicture.image!)
+        contact.imageData = NSData(data: data!)
+        //email
+        if user!["email"] != nil {
+            let email = CNLabeledValue(label: CNLabelHome, value: user!["email"] as! String)
+            contact.emailAddresses = [email]
+        }
+        
+        do {
+            let saveRequest = CNSaveRequest()
+            saveRequest.addContact(contact, toContainerWithIdentifier: nil)
+            try contactStore.executeSaveRequest(saveRequest)
+            let alert = UIAlertController.createAlert("Success!", withMessage: "Contact saved.")
+            self.presentViewController(alert, animated: true, completion: nil)
+        } catch {
+            let error = UIAlertController.createAlert("Unable to save contact.")
+            self.presentViewController(error, animated: true, completion: nil)
+        }
     }
 }

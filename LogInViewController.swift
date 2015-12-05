@@ -102,6 +102,12 @@ extension UIAlertController{
         alert.addAction(UIAlertAction(title: "Ok",style: .Cancel,handler: nil))
         return alert
     }
+    
+    class func createAlert(title: String, withMessage message: String)->UIAlertController {
+        let alert = UIAlertController(title: "\(title)", message: "\(message)", preferredStyle: .Alert)
+        alert.addAction(UIAlertAction(title: "Ok",style: .Cancel,handler: nil))
+        return alert
+    }
 }
 
 
