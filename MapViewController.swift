@@ -12,36 +12,68 @@ import MapKit
 import CoreLocation
 
 class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate {
-    var location: CLLocation?
-    var user: PFUser?
+
+    let user = PFUser.currentUser()
+    var isPersonalMap = true
+    var viewTitle: String?
     var username: String?
     var profilePic: UIImage?
+    let manager = (UIApplication.sharedApplication().delegate as! AppDelegate).manager
+    var location: CLLocation?
     
     @IBOutlet weak var updateAddressButton: UIButton!
     @IBOutlet weak var mapView: MKMapView!
     
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
+    
     @IBAction func updateAddress(sender: AnyObject) {
-        //Update the user's address -- implement this later.
+        user!["address"] = PFGeoPoint(location: location!)
+        user!.saveInBackgroundWithBlock {
+            (success: Bool, error: NSError?) -> Void in
+            if (success) {
+                let alert = UIAlertController.createAlert("Address Saved!")
+                self.presentViewController(alert, animated: true, completion: nil)
+            } else if let err = error {
+                let alert = UIAlertController.createAlert("Error", withMessage: err.description)
+                self.presentViewController(alert, animated: true, completion: nil)
+            }
+        }
+
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         mapView.delegate = self
-        if let usr = user {
-            username = usr["name"] as? String
-        }
-        self.navigationItem.title = "\(username!)'s address"
-        
-        if let coord = location?.coordinate{
-            let region = MKCoordinateRegionMakeWithDistance(coord, 2000, 2000)
-            mapView.setRegion(region, animated: true)
-            placeAnnotation()
+        self.navigationItem.title = viewTitle!
+        updateAddressButton.hidden = true
+        manager.delegate = self
+        //Distinguishes between searching and displaying current location or simply displaying
+        //a location that is given by Parsez
+        if isPersonalMap{
+            manager.requestLocation()
+        } else {
+            setMapRegion()
         }
     }
     
+    func locationManager(manager: CLLocationManager, didFailWithError error: NSError) {
+        let alert = UIAlertController.createAlert("Error", withMessage: error.description)
+        presentViewController(alert, animated: true, completion: nil)
+    }
+    
+    func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        location = locations.first
+        setMapRegion()
+    }
+    
     func placeAnnotation() {
+        print("hi")
         let pin = MapPin(coordinate: location!.coordinate, title: "\(username!)'s address", subtitle: nil)
         mapView.addAnnotation(pin)
+        activityIndicator.stopAnimating()
+        if isPersonalMap{
+            updateAddressButton.hidden = false
+        }
     }
     
     func mapView(mapView: MKMapView, viewForAnnotation annotation: MKAnnotation) -> MKAnnotationView? {
@@ -65,6 +97,14 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         mapItem.name = "\(username!)'s address"
         mapItem.openInMapsWithLaunchOptions(nil)
         //Referenced: http://stackoverflow.com/questions/28604429/how-to-open-maps-app-programatically-with-coordinates-in-swift
+    }
+    
+    func setMapRegion(){
+        if let coord = location?.coordinate{
+            let region = MKCoordinateRegionMakeWithDistance(coord, 2000, 2000)
+            mapView.setRegion(region, animated: true)
+            placeAnnotation()
+        }
     }
     
 }

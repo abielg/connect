@@ -28,6 +28,7 @@ class UserProfileViewController: UIViewController, UITextFieldDelegate, UIImageP
     @IBOutlet weak var addressView: UIView!
     @IBOutlet weak var snapchatView: UIView!
     
+    @IBOutlet weak var keyboardDismissingView: UIView!
     
     
     override func viewDidLoad() {
@@ -45,7 +46,12 @@ class UserProfileViewController: UIViewController, UITextFieldDelegate, UIImageP
                 }
             }
         }
-        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector:"keyboardWillAppear:",
+            name: UIKeyboardWillShowNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector:"keyboardWillDisappear:",
+            name: UIKeyboardWillHideNotification, object: nil)
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "dismissKeyboard")
+        view.addGestureRecognizer(tap)
         configureTextFields()
     }
     
@@ -106,6 +112,37 @@ class UserProfileViewController: UIViewController, UITextFieldDelegate, UIImageP
         }
     }
     
+    func keyBoardWillAppear(){
+        keyboardDismissingView.hidden = false
+    }
+    
+    func dismissKeyboard(){
+        keyboardDismissingView.hidden = true
+        view.endEditing(true)
+    }
+    
+    func textFieldDidEndEditing(textField: UITextField) {
+        if textField.text != "" {
+            if let superView = textField.superview{
+                switch(superView){
+                case facebookView:
+                    user!["facebook"] = textField.text
+                case twitterView:
+                    user!["twitter"] = textField.text
+                case phoneView:
+                    user!["phone"] = textField.text
+                case mailView:
+                    user!["mail"] = textField.text
+                case snapchatView:
+                    user!["snapchat"] = textField.text
+                default: break
+                }
+                PFUser.saveUserToParse(user!)
+            }
+        }
+
+    }
+    
     func textFieldShouldReturn(textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         if textField.text != "" {
@@ -156,8 +193,8 @@ class UserProfileViewController: UIViewController, UITextFieldDelegate, UIImageP
     
     // MARK: View/Record Address
     //////////////// View or record new user's address ////////////////
-    let manager = CLLocationManager()
     @IBAction func enterAddress(sender: AnyObject) {
+        let manager = (UIApplication.sharedApplication().delegate as! AppDelegate).manager
         manager.delegate = self
         manager.desiredAccuracy = kCLLocationAccuracyBest
         manager.distanceFilter = kCLDistanceFilterNone //meters
@@ -168,9 +205,7 @@ class UserProfileViewController: UIViewController, UITextFieldDelegate, UIImageP
         
         if CLLocationManager.authorizationStatus() == .AuthorizedWhenInUse || CLLocationManager.authorizationStatus() == .AuthorizedAlways{
             if CLLocationManager.locationServicesEnabled() {
-                manager.requestLocation()
-                //manager.startUpdatingLocation()
-                print("started")
+                performSegueWithIdentifier("showMap", sender: user)
             } else {
                 let alert = UIAlertController.createAlert("Location services are not enabled for your device.")
                 self.presentViewController(alert, animated: true, completion: nil)
@@ -181,23 +216,13 @@ class UserProfileViewController: UIViewController, UITextFieldDelegate, UIImageP
             self.presentViewController(alert, animated: true, completion: nil)
         }
     }
-    
-    func locationManager(manager: CLLocationManager, didFailWithError error: NSError) {
-        print(error)
-    }
-    
-    func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        mapLocation = locations.first
-        print("got em")
-        performSegueWithIdentifier("showMap", sender: user)
-    }
-    
+        
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "showMap"{
             if let mapViewController = segue.destinationViewController as? MapViewController{
-                mapViewController.location = mapLocation!
-                mapViewController.username = user!["username"] as? String
+                mapViewController.viewTitle = "Your Location"
                 mapViewController.profilePic = profilePic.image
+                mapViewController.username = user!["username"] as? String
             }
         }
     }

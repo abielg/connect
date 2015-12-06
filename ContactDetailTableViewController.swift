@@ -62,6 +62,9 @@ class ContactDetailTableViewController: UITableViewController {
         if let account = user![accountString] as? String {
             cell.textLabel!.text = account
             cell.accessoryType = .DisclosureIndicator
+        } else if accountString == "address" && user!["address"] != nil{
+            cell.textLabel!.text = "View Address"
+            cell.accessoryType = .DisclosureIndicator
         } else {
             cell.textLabel!.text = "N/A"
             cell.selectionStyle = .None
@@ -87,10 +90,28 @@ class ContactDetailTableViewController: UITableViewController {
                             presentViewController(error, animated: true, completion: nil)
                         }
                     }
+                case(3,0):
+                    performSegueWithIdentifier("showContactAddress", sender: nil)
                     
                 default:
                     break
                 }
+            }
+        }
+    }
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == "showContactAddress" {
+            if let mapViewController = segue.destinationViewController as? MapViewController {
+                let name = nameLabel.text
+                mapViewController.viewTitle = "\(name!)'s Address"
+                mapViewController.username = name
+                mapViewController.profilePic = profilePicture.image
+                if let geopoint = user?["address"] as? PFGeoPoint{
+                    let loc = CLLocation(latitude: geopoint.latitude as CLLocationDegrees, longitude: geopoint.longitude as CLLocationDegrees)
+                    mapViewController.location = loc
+                }
+                mapViewController.isPersonalMap = false
             }
         }
     }
