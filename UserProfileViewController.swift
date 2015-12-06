@@ -20,12 +20,14 @@ class UserProfileViewController: UIViewController, UITextFieldDelegate, UIImageP
     
     @IBOutlet weak var profilePic: UIImageView!
     
+    
     @IBOutlet weak var facebookView: UIView!
     @IBOutlet weak var twitterView: UIView!
     @IBOutlet weak var phoneView: UIView!
     @IBOutlet weak var mailView: UIView!
     @IBOutlet weak var addressView: UIView!
     @IBOutlet weak var snapchatView: UIView!
+    
     
     
     override func viewDidLoad() {
@@ -53,20 +55,17 @@ class UserProfileViewController: UIViewController, UITextFieldDelegate, UIImageP
     
     @IBAction func enterAccount(sender: AnyObject) {
         var textfield = UITextField()
-        var image = UIImageView()
         
         if let button = sender as? UIButton{
             if let superView = button.superview {
                 for subview in superView.subviews{
                     if let field = subview as? UITextField{
                         textfield = field
-                    } else if let img = subview as? UIImageView{
-                        image = img
                     }
                 }
                 UIView.animateWithDuration(0.4, delay: 0.0, options: .CurveEaseIn,
-                    animations: { image.alpha = 0.0 },
-                    completion:{ if $0 { textfield.hidden = false } })
+                    animations: { textfield.hidden = false; textfield.alpha = 1.0 },
+                    completion:{ if $0 {} })
             }
             button.removeFromSuperview()
         }
@@ -101,6 +100,7 @@ class UserProfileViewController: UIViewController, UITextFieldDelegate, UIImageP
                     default: break
                     }
                     field.hidden = true
+                    field.alpha = 0.0
                 }
             }
         }
