@@ -75,6 +75,19 @@ class ContactDetailTableViewController: UITableViewController {
                 switch(indexPath.section, indexPath.row){
                 case (1,0):
                     phoneNumberSelected(cellText)
+                case (1,1):
+                    emailSelected()
+                case(2,0):
+                    if let fbAccount = user!["facebook"] as? String {
+                        let fbURL = NSURL(string: "http://www.facebook.com/\(fbAccount)")
+                        if UIApplication.sharedApplication().canOpenURL(fbURL!){
+                            UIApplication.sharedApplication().openURL(fbURL!)
+                        } else {
+                            let error = UIAlertController.createAlert("Error", withMessage: "Could not open Facebook profile.")
+                            presentViewController(error, animated: true, completion: nil)
+                        }
+                    }
+                    
                 default:
                     break
                 }
@@ -82,6 +95,7 @@ class ContactDetailTableViewController: UITableViewController {
         }
     }
     
+
     func phoneNumberSelected(phoneNumber: String){
         let alert = UIAlertController(title: "\(nameLabel.text!)'s number", message: phoneNumber, preferredStyle: .Alert)
         alert.addAction(UIAlertAction(title: "Call", style: .Default){
@@ -90,16 +104,11 @@ class ContactDetailTableViewController: UITableViewController {
             UIApplication.sharedApplication().openURL(phoneURL!)
             //referenced: http://stackoverflow.com/questions/25117321/iphone-call-from-app-in-swift-xcode-6
         })
-        alert.addAction(UIAlertAction(title: "Add to Contacts", style: .Default){
-            (action: UIAlertAction) -> Void in
-                self.saveContact()
-            }
-        )
         alert.addAction(UIAlertAction(title: "Cancel", style: .Cancel,handler: nil))
         presentViewController(alert, animated: true, completion: nil)
     }
     
-    func saveContact(){
+    @IBAction func saveToContacts(sender: AnyObject) {
         let status = CNContactStore.authorizationStatusForEntityType(.Contacts)
         if status != CNAuthorizationStatus.Authorized {
             contactStore.requestAccessForEntityType(.Contacts){
@@ -144,5 +153,19 @@ class ContactDetailTableViewController: UITableViewController {
             let error = UIAlertController.createAlert("Unable to save contact.")
             self.presentViewController(error, animated: true, completion: nil)
         }
+    }
+    
+    func emailSelected(){
+        let alert = UIAlertController(title: "\(nameLabel.text!)'s email", message: emailCell.textLabel!.text, preferredStyle: .Alert)
+        alert.addAction(UIAlertAction(title: "Send Email", style: .Default){
+            (action: UIAlertAction) -> Void in
+                //let url = NSURL(string: "mailto:\(self.emailCell.textLabel!.text)")
+            if let email = self.emailCell.textLabel!.text {
+                let url = NSURL(string: "mailto:\(email)")
+                UIApplication.sharedApplication().openURL(url!)
+            }
+            })
+        alert.addAction(UIAlertAction(title: "Cancel", style: .Cancel,handler: nil))
+        presentViewController(alert, animated: true, completion: nil)
     }
 }
