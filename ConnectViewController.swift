@@ -9,5 +9,10 @@ import UIKit
 import Parse
 
 class ConnectViewController: UIViewController {
+    
+    override func viewDidLoad(){
+        super.viewDidLoad()
+        self.navigationItem.title = "Connect"
+    }
 
 }

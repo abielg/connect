@@ -46,6 +46,10 @@
 		B2C8E5FD1C12CEDF00065F99 /* ContactsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2C8E5FC1C12CEDF00065F99 /* ContactsTableViewController.swift */; };
 		B2C8E6011C135C0100065F99 /* ContactDetailTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2C8E6001C135C0100065F99 /* ContactDetailTableViewController.swift */; };
 		B2C8E6031C13828300065F99 /* Contacts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B2C8E6021C13828300065F99 /* Contacts.framework */; };
+		B2C8E6051C14F33A00065F99 /* connect_circle.png in Resources */ = {isa = PBXBuildFile; fileRef = B2C8E6041C14F33A00065F99 /* connect_circle.png */; };
+		B2C8E6071C1504FF00065F99 /* CoreBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B2C8E6061C1504FF00065F99 /* CoreBluetooth.framework */; };
+		B2C8E6091C150D2B00065F99 /* PeripheralViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2C8E6081C150D2B00065F99 /* PeripheralViewController.swift */; };
+		B2C8E60B1C150D3F00065F99 /* CentralManagerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2C8E60A1C150D3F00065F99 /* CentralManagerViewController.swift */; };
 		B2FCE3491C0EBB8F00594687 /* connect_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = B2FCE3451C0EBB8F00594687 /* connect_icon.png */; };
 		B2FCE34A1C0EBB8F00594687 /* search_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = B2FCE3461C0EBB8F00594687 /* search_icon.png */; };
 		B2FCE34B1C0EBB8F00594687 /* profile_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = B2FCE3471C0EBB8F00594687 /* profile_icon.png */; };
@@ -95,6 +99,10 @@
 		B2C8E5FC1C12CEDF00065F99 /* ContactsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ContactsTableViewController.swift; path = ../ContactsTableViewController.swift; sourceTree = "<group>"; };
 		B2C8E6001C135C0100065F99 /* ContactDetailTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ContactDetailTableViewController.swift; path = ../ContactDetailTableViewController.swift; sourceTree = "<group>"; };
 		B2C8E6021C13828300065F99 /* Contacts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Contacts.framework; path = System/Library/Frameworks/Contacts.framework; sourceTree = SDKROOT; };
+		B2C8E6041C14F33A00065F99 /* connect_circle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = connect_circle.png; sourceTree = "<group>"; };
+		B2C8E6061C1504FF00065F99 /* CoreBluetooth.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreBluetooth.framework; path = System/Library/Frameworks/CoreBluetooth.framework; sourceTree = SDKROOT; };
+		B2C8E6081C150D2B00065F99 /* PeripheralViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PeripheralViewController.swift; path = ../PeripheralViewController.swift; sourceTree = "<group>"; };
+		B2C8E60A1C150D3F00065F99 /* CentralManagerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CentralManagerViewController.swift; path = ../CentralManagerViewController.swift; sourceTree = "<group>"; };
 		B2FCE3451C0EBB8F00594687 /* connect_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = connect_icon.png; sourceTree = "<group>"; };
 		B2FCE3461C0EBB8F00594687 /* search_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = search_icon.png; sourceTree = "<group>"; };
 		B2FCE3471C0EBB8F00594687 /* profile_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = profile_icon.png; sourceTree = "<group>"; };
@@ -107,6 +115,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B2C8E6071C1504FF00065F99 /* CoreBluetooth.framework in Frameworks */,
 				B2C8E6031C13828300065F99 /* Contacts.framework in Frameworks */,
 				B281AFBC1C0D8011003C4290 /* libsqlite3.tbd in Frameworks */,
 				B281AFBA1C0D8008003C4290 /* libz.tbd in Frameworks */,
@@ -157,6 +166,8 @@
 				B2C8E5E21C124C6500065F99 /* SearchTableViewController.swift */,
 				B2C8E5F41C126E3A00065F99 /* SearchTableCell.swift */,
 				B2FCE34D1C0EDB9D00594687 /* ConnectViewController.swift */,
+				B2C8E6081C150D2B00065F99 /* PeripheralViewController.swift */,
+				B2C8E60A1C150D3F00065F99 /* CentralManagerViewController.swift */,
 				B281AF971C0D7DF1003C4290 /* Main.storyboard */,
 				B281AFC21C0D8C52003C4290 /* Supporting Files */,
 			);
@@ -166,6 +177,7 @@
 		B281AFBD1C0D8031003C4290 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				B2C8E6061C1504FF00065F99 /* CoreBluetooth.framework */,
 				B2C8E6021C13828300065F99 /* Contacts.framework */,
 				B281AFBB1C0D8011003C4290 /* libsqlite3.tbd */,
 				B281AFB91C0D8008003C4290 /* libz.tbd */,
@@ -198,6 +210,7 @@
 			children = (
 				B2C8E5E51C12599000065F99 /* Small Social Media */,
 				B2C8E5E01C123CFB00065F99 /* default_profile.png */,
+				B2C8E6041C14F33A00065F99 /* connect_circle.png */,
 				B2FCE3391C0EB93B00594687 /* tabBar Icons */,
 				B2FCE33A1C0EB94C00594687 /* Social Media Icons */,
 			);
@@ -314,6 +327,7 @@
 				B2C8E5EF1C1259D700065F99 /* phone_icon_small.png in Resources */,
 				B2C8E5E11C123CFB00065F99 /* default_profile.png in Resources */,
 				B2FCE3491C0EBB8F00594687 /* connect_icon.png in Resources */,
+				B2C8E6051C14F33A00065F99 /* connect_circle.png in Resources */,
 				B281AFC71C0DA294003C4290 /* snapchat_icon.png in Resources */,
 				B281AFC91C0DA2C7003C4290 /* instagram_icon.png in Resources */,
 				B281AFCB1C0DA39A003C4290 /* email_icon.png in Resources */,
@@ -334,6 +348,8 @@
 				B2C8E5DF1C12233E00065F99 /* MapPin.swift in Sources */,
 				B281AF941C0D7DF1003C4290 /* AppDelegate.swift in Sources */,
 				B281AFD31C0DA84D003C4290 /* UserProfileViewController.swift in Sources */,
+				B2C8E6091C150D2B00065F99 /* PeripheralViewController.swift in Sources */,
+				B2C8E60B1C150D3F00065F99 /* CentralManagerViewController.swift in Sources */,
 				B2C8E5E31C124C6500065F99 /* SearchTableViewController.swift in Sources */,
 				B281AFBF1C0D8682003C4290 /* LogInViewController.swift in Sources */,
 				B2C8E5DD1C11089A00065F99 /* MapViewController.swift in Sources */,

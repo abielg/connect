@@ -46,12 +46,12 @@ class UserProfileViewController: UIViewController, UITextFieldDelegate, UIImageP
                 }
             }
         }
-        NSNotificationCenter.defaultCenter().addObserver(self, selector:"keyboardWillAppear:",
+        NSNotificationCenter.defaultCenter().addObserver(self, selector:"keyboardWillAppear",
             name: UIKeyboardWillShowNotification, object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector:"keyboardWillDisappear:",
+        NSNotificationCenter.defaultCenter().addObserver(self, selector:"dismissKeyboard",
             name: UIKeyboardWillHideNotification, object: nil)
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "dismissKeyboard")
-        view.addGestureRecognizer(tap)
+        keyboardDismissingView.addGestureRecognizer(tap)
         configureTextFields()
     }
     
@@ -112,7 +112,7 @@ class UserProfileViewController: UIViewController, UITextFieldDelegate, UIImageP
         }
     }
     
-    func keyBoardWillAppear(){
+    func keyboardWillAppear(){
         keyboardDismissingView.hidden = false
     }
     
@@ -145,24 +145,6 @@ class UserProfileViewController: UIViewController, UITextFieldDelegate, UIImageP
     
     func textFieldShouldReturn(textField: UITextField) -> Bool {
         textField.resignFirstResponder()
-        if textField.text != "" {
-            if let superView = textField.superview{
-                switch(superView){
-                case facebookView:
-                    user!["facebook"] = textField.text
-                case twitterView:
-                    user!["twitter"] = textField.text
-                case phoneView:
-                    user!["phone"] = textField.text
-                case mailView:
-                    user!["mail"] = textField.text
-                case snapchatView:
-                    user!["snapchat"] = textField.text
-                default: break
-                }
-                PFUser.saveUserToParse(user!)
-            }
-        }
         return true
     }
     

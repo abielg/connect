@@ -95,7 +95,7 @@
                         <segue destination="ioC-oV-aAN" kind="relationship" relationship="viewControllers" id="Ck4-vV-uaH"/>
                         <segue destination="JbQ-yQ-Nfw" kind="relationship" relationship="viewControllers" id="MI4-cL-tAd"/>
                         <segue destination="hv4-Ut-BPr" kind="relationship" relationship="viewControllers" id="1yA-c7-9B7"/>
-                        <segue destination="JLr-np-ilt" kind="relationship" relationship="viewControllers" id="VMy-Jw-Mhk"/>
+                        <segue destination="bXz-gQ-hAY" kind="relationship" relationship="viewControllers" id="VMy-Jw-Mhk"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iYZ-LO-bIT" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -927,12 +927,12 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="g5o-KE-1MZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="565" y="-38"/>
+            <point key="canvasLocation" x="1377" y="-38"/>
         </scene>
-        <!--Connect-->
+        <!--Connect View Controller-->
         <scene sceneID="xit-Jh-CdU">
             <objects>
-                <viewController id="JLr-np-ilt" sceneMemberID="viewController">
+                <viewController id="JLr-np-ilt" customClass="ConnectViewController" customModule="Connect" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="xuS-gF-9dK"/>
                         <viewControllerLayoutGuide type="bottom" id="cS6-FO-2jl"/>
@@ -940,13 +940,114 @@
                     <view key="view" contentMode="scaleToFill" id="PPe-s8-za8">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="connect_circle.png" translatesAutoresizingMaskIntoConstraints="NO" id="LZl-9o-j5p">
+                                <rect key="frame" x="200" y="160" width="200" height="200"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="200" id="BcE-Cp-e2T"/>
+                                    <constraint firstAttribute="height" constant="200" id="gN1-Pm-UAF"/>
+                                </constraints>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="F5U-zy-mvR">
+                                <rect key="frame" x="216" y="375" width="168" height="39"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="168" id="N1w-rd-sdg"/>
+                                    <constraint firstAttribute="height" constant="39" id="nd1-ra-XhJ"/>
+                                </constraints>
+                                <state key="normal" title="Create a Connection"/>
+                                <connections>
+                                    <segue destination="3gu-sT-CCh" kind="show" animates="NO" id="72P-Tk-qmz"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4Qd-63-5Vp">
+                                <rect key="frame" x="216" y="429" width="168" height="39"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="39" id="Geh-2j-EVu"/>
+                                    <constraint firstAttribute="width" constant="168" id="cfP-VH-Kbi"/>
+                                </constraints>
+                                <state key="normal" title="Seek a Connection"/>
+                                <connections>
+                                    <segue destination="CSH-r7-e17" kind="show" animates="NO" id="s87-Ie-ynY"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" red="0.95238095238095233" green="0.95238095238095233" blue="0.95238095238095233" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstItem="F5U-zy-mvR" firstAttribute="centerX" secondItem="PPe-s8-za8" secondAttribute="centerX" id="8QX-nD-ffZ"/>
+                            <constraint firstItem="LZl-9o-j5p" firstAttribute="centerX" secondItem="PPe-s8-za8" secondAttribute="centerX" id="F0u-hl-okC"/>
+                            <constraint firstItem="4Qd-63-5Vp" firstAttribute="top" secondItem="F5U-zy-mvR" secondAttribute="bottom" constant="15" id="PDU-tQ-VR3"/>
+                            <constraint firstItem="LZl-9o-j5p" firstAttribute="centerY" secondItem="PPe-s8-za8" secondAttribute="centerY" constant="-40" id="g5t-Df-bSf"/>
+                            <constraint firstItem="4Qd-63-5Vp" firstAttribute="centerX" secondItem="PPe-s8-za8" secondAttribute="centerX" id="kk5-Bq-bpv"/>
+                            <constraint firstItem="F5U-zy-mvR" firstAttribute="top" secondItem="LZl-9o-j5p" secondAttribute="bottom" constant="15" id="pVh-3e-q6W"/>
+                        </constraints>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Connect" image="connect_icon.png" id="dE0-AV-CTr"/>
+                    <navigationItem key="navigationItem" id="odc-LV-5gf"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="CTQ-oy-8gL" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1011" y="-113"/>
+            <point key="canvasLocation" x="-274" y="-80"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="zKU-uX-1QH">
+            <objects>
+                <viewController id="3gu-sT-CCh" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="QGI-DB-wfB"/>
+                        <viewControllerLayoutGuide type="bottom" id="nuU-fQ-8qv"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="isb-S4-pOo">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="connect_circle.png" translatesAutoresizingMaskIntoConstraints="NO" id="Lrv-cE-w9x">
+                                <rect key="frame" x="200" y="160" width="200" height="200"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="200" id="BMk-m5-Goj"/>
+                                    <constraint firstAttribute="height" constant="200" id="JN1-pj-htu"/>
+                                </constraints>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" red="0.94117647058823528" green="0.94117647058823528" blue="0.94117647058823528" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstItem="Lrv-cE-w9x" firstAttribute="centerX" secondItem="isb-S4-pOo" secondAttribute="centerX" id="UcM-S8-Cbb"/>
+                            <constraint firstItem="Lrv-cE-w9x" firstAttribute="centerY" secondItem="isb-S4-pOo" secondAttribute="centerY" constant="-40" id="g9D-Rh-mdf"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="OGv-KM-ke5" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="401" y="-421"/>
+        </scene>
+        <!--Central Manager View Controller-->
+        <scene sceneID="Std-DO-YGu">
+            <objects>
+                <viewController id="CSH-r7-e17" customClass="CentralManagerViewController" customModule="Connect" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="gn7-wZ-DBb"/>
+                        <viewControllerLayoutGuide type="bottom" id="J9J-ws-0Uj"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="KnR-CX-bBI">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="connect_circle.png" translatesAutoresizingMaskIntoConstraints="NO" id="1g4-cy-RgT">
+                                <rect key="frame" x="200" y="160" width="200" height="200"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="200" id="RwL-IT-6Dj"/>
+                                    <constraint firstAttribute="width" constant="200" id="TyC-3o-XCU"/>
+                                </constraints>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" red="0.94117647058823528" green="0.94117647058823528" blue="0.94117647058823528" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstItem="1g4-cy-RgT" firstAttribute="centerX" secondItem="KnR-CX-bBI" secondAttribute="centerX" id="QXO-4A-LA4"/>
+                            <constraint firstItem="1g4-cy-RgT" firstAttribute="centerY" secondItem="KnR-CX-bBI" secondAttribute="centerY" constant="-40" id="dkZ-f3-BVp"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="b1l-sJ-aCZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="405" y="243"/>
         </scene>
         <!--Me-->
         <scene sceneID="Hsa-Yu-YD0">
@@ -1005,9 +1106,29 @@
             </objects>
             <point key="canvasLocation" x="-1011" y="-1474"/>
         </scene>
+        <!--Connect-->
+        <scene sceneID="I7S-KK-f1t">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="bXz-gQ-hAY" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Connect" image="connect_icon.png" id="dE0-AV-CTr"/>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="kYV-GI-scs">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="JLr-np-ilt" kind="relationship" relationship="rootViewController" id="RqR-Ju-Z1W"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="89Q-i8-f6L" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-965" y="-85"/>
+        </scene>
     </scenes>
     <resources>
         <image name="address_icon.png" width="700" height="631"/>
+        <image name="connect_circle.png" width="954" height="942"/>
         <image name="connect_icon.png" width="35" height="34"/>
         <image name="contacts_icon.png" width="32" height="35"/>
         <image name="default_profile.png" width="263" height="263"/>
