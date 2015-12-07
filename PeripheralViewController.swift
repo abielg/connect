@@ -10,7 +10,7 @@ import CoreBluetooth
 import Parse
 
 class PeripheralViewController: UIViewController, CBPeripheralManagerDelegate {
-    let peripheralManager = CBPeripheralManager()
+    var peripheralManager: CBPeripheralManager?
     var characteristic: CBMutableCharacteristic?
     var sentData = NSData()
     let dataIndex = NSInteger()
@@ -22,11 +22,14 @@ class PeripheralViewController: UIViewController, CBPeripheralManagerDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        peripheralManager.startAdvertising([CBAdvertisementDataServiceUUIDsKey:SERVICE_UUID])
+        self.navigationItem.title = "Create Connection"
+        peripheralManager = CBPeripheralManager(delegate: self, queue: nil, options: nil)
         sentData = ("Alberto").dataUsingEncoding(NSUTF8StringEncoding)!
+        peripheralManager!.startAdvertising([CBAdvertisementDataServiceUUIDsKey:CBUUID(string:SERVICE_UUID)])
     }
     
     func peripheralManagerDidUpdateState(peripheral: CBPeripheralManager) {
+        print("got here")
         if peripheral.state != CBPeripheralManagerState.PoweredOn{
             print("SUPPORT BLUETOOTH")
             return
@@ -36,7 +39,7 @@ class PeripheralViewController: UIViewController, CBPeripheralManagerDelegate {
             characteristic = CBMutableCharacteristic(type: CBUUID(string: CHARACTERISTIC_UUID), properties: CBCharacteristicProperties.Notify, value: sentData, permissions: CBAttributePermissions.Readable)
             let service = CBMutableService(type: CBUUID(string: SERVICE_UUID), primary: true)
             service.characteristics = [characteristic!]
-            peripheralManager.addService(service)
+            peripheralManager!.addService(service)
             print("service added")
         }
     }
