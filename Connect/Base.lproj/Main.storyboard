@@ -834,8 +834,8 @@
                                     </stackView>
                                 </subviews>
                             </stackView>
-                            <view hidden="YES" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="24b-p5-tDu">
-                                <rect key="frame" x="31" y="-22" width="483" height="496"/>
+                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="24b-p5-tDu">
+                                <rect key="frame" x="20" y="0.0" width="560" height="551"/>
                                 <color key="backgroundColor" white="1" alpha="0.0" colorSpace="calibratedWhite"/>
                             </view>
                         </subviews>
@@ -1141,6 +1141,6 @@
         <image name="twitter_icon.png" width="1200" height="1200"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="4qY-6D-5Oo"/>
+        <segue reference="nIH-st-ZIf"/>
     </inferredMetricsTieBreakers>
 </document>
