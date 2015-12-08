@@ -15,13 +15,14 @@ class CentralManagerViewController: UIViewController, CBCentralManagerDelegate, 
     var discoveredPeripheral: CBPeripheral?
     var centralManager = CBCentralManager()
     
-    let SERVICE_UUID = "FB694B90-F49E-4597-8306-171BBA78F846"
-    let CHARACTERISTIC_UUID = "EB6727C4-F184-497A-A656-76B0CDAC633A"
+    let SERVICE_UUID = CBUUID(string: "BC585695-CB18-4AEF-98E3-54CF0A2D08A8") //changed 9 to 8
+    let CHARACTERISTIC_UUID = CBUUID(string:"DDB11B18-029E-4431-BA2B-3C6C32E44FA5")
     
     let user = PFUser.currentUser()
     var newConnection: String?{
         didSet{
-            //Make all the Parse connection shit
+            let alert = UIAlertController.createAlert("Connected with \(newConnection!)")
+            presentViewController(alert, animated: true, completion: nil)
         }
     }
     
@@ -29,6 +30,7 @@ class CentralManagerViewController: UIViewController, CBCentralManagerDelegate, 
         super.viewDidLoad()
         self.navigationItem.title = "Seek Connection"
         centralManager.delegate = self
+        print("viewLoaded")
     }
     
     override func viewWillDisappear(animated: Bool) {
@@ -51,41 +53,64 @@ class CentralManagerViewController: UIViewController, CBCentralManagerDelegate, 
             let alert = UIAlertController.createAlert("Error", withMessage: "Please turn Bluetooth on.")
             presentViewController(alert, animated: true, completion: nil)
         case .PoweredOn:
-            print("on")
-            centralManager.scanForPeripheralsWithServices([CBUUID(string: SERVICE_UUID)], options: [CBCentralManagerScanOptionAllowDuplicatesKey: true])
+            centralManager.scanForPeripheralsWithServices([SERVICE_UUID], options: nil)
+            print("scanning started")
         }
     }
     
     func centralManager(central: CBCentralManager, didDiscoverPeripheral peripheral: CBPeripheral, advertisementData: [String : AnyObject], RSSI: NSNumber) {
+        print("peripheral discovered: \(peripheral.name)")
         discoveredPeripheral = peripheral
         centralManager.connectPeripheral(peripheral, options: nil)
     }
     
     func centralManager(central: CBCentralManager, didConnectPeripheral peripheral: CBPeripheral) {
+        print("peripheral connected")
         centralManager.stopScan()
         peripheral.delegate = self
+        peripheral.discoverServices(nil)
+    }
+    
+    func peripheral(peripheral: CBPeripheral, didDiscoverServices error: NSError?) {
         if let service = peripheral.services?.first{
-            peripheral.discoverCharacteristics([CBUUID(string: CHARACTERISTIC_UUID)], forService: service)
+            print("got service")
+            peripheral.discoverCharacteristics(nil, forService: service)
         }
     }
     
-    func centralManager(central: CBCentralManager, didFailToConnectPeripheral peripheral: CBPeripheral, error: NSError?) {
-        removeConnections()
-        let alert = UIAlertController.createAlert("Error", withMessage: "Failed to connect to device.")
-        presentViewController(alert, animated: true, completion: nil)
-    }
-    
     func peripheral(peripheral: CBPeripheral, didDiscoverCharacteristicsForService service: CBService, error: NSError?) {
+        print("discovered characteristic")
         if error != nil{
             print(error?.description)
             return
         }
         //might want to check for the correct UUID
-        if let char = service.characteristics?.first{
-            peripheral.setNotifyValue(true, forCharacteristic: char)
+        print(service.characteristics!.count)
+        for char in service.characteristics!{
+            print(char)
+            //print(String(data:char.value!, encoding:NSUTF8StringEncoding))
+            peripheral.readValueForCharacteristic(char)
+        }
+        
+        /*if let char = service.characteristics?.first{
+            print("unwrapped characteristic")
+            print(char.UUID)
+            peripheral.readValueForCharacteristic(char)
+        }*/
+    }
+    
+    func peripheral(peripheral: CBPeripheral, didUpdateValueForCharacteristic characteristic: CBCharacteristic, error: NSError?) {
+        if let data = characteristic.value{
+            print("data unwrapped")
+            newConnection = String(data: data, encoding:NSUTF8StringEncoding)
         }
     }
     
+    //newConnection = String(data: data, encoding:NSUTF8StringEncoding)
+
+    
+    
+    /*
     func peripheral(peripheral: CBPeripheral, didUpdateValueForCharacteristic characteristic: CBCharacteristic, error: NSError?) {
         if error != nil {
             print(error?.description)
@@ -99,12 +124,15 @@ class CentralManagerViewController: UIViewController, CBCentralManagerDelegate, 
         presentViewController(alert, animated: true, completion: nil)
 
     }
-    
+*/
+  
+    /*
     func peripheral(peripheral: CBPeripheral, didUpdateNotificationStateForCharacteristic characteristic: CBCharacteristic, error: NSError?) {
         if !characteristic.isNotifying{
             centralManager.cancelPeripheralConnection(peripheral)
         }
     }
+*/
     
     func centralManager(central: CBCentralManager, didDisconnectPeripheral peripheral: CBPeripheral, error: NSError?) {
         discoveredPeripheral = nil
@@ -115,6 +143,12 @@ class CentralManagerViewController: UIViewController, CBCentralManagerDelegate, 
         if let peri = discoveredPeripheral{
             centralManager.cancelPeripheralConnection(peri)
         }
+    }
+    
+    func centralManager(central: CBCentralManager, didFailToConnectPeripheral peripheral: CBPeripheral, error: NSError?) {
+        removeConnections()
+        let alert = UIAlertController.createAlert("Error", withMessage: "Failed to connect to device.")
+        presentViewController(alert, animated: true, completion: nil)
     }
     
 }
