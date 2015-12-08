@@ -15,10 +15,11 @@ class CentralManagerViewController: UIViewController, CBCentralManagerDelegate, 
     var discoveredPeripheral: CBPeripheral?
     var centralManager = CBCentralManager()
     
-    let SERVICE_UUID = CBUUID(string: "BC585695-CB18-4AEF-98E3-54CF0A2D08A8") //changed 9 to 8
+    let SERVICE_UUID = CBUUID(string: "BC585695-CB18-4AEF-98E3-54CF0A2D08A9") 
     let CHARACTERISTIC_UUID = CBUUID(string:"DDB11B18-029E-4431-BA2B-3C6C32E44FA5")
     
     let user = PFUser.currentUser()
+    let PARSE_OBJECT_ID = "ukx0xvH6vt"
     var newConnection: String?{
         didSet{
             let alert = UIAlertController.createAlert("Connected with \(newConnection!)")
@@ -60,6 +61,7 @@ class CentralManagerViewController: UIViewController, CBCentralManagerDelegate, 
     
     func centralManager(central: CBCentralManager, didDiscoverPeripheral peripheral: CBPeripheral, advertisementData: [String : AnyObject], RSSI: NSNumber) {
         print("peripheral discovered: \(peripheral.name)")
+        retrieveNameFromParse(peripheral.name!)
         discoveredPeripheral = peripheral
         centralManager.connectPeripheral(peripheral, options: nil)
     }
@@ -88,8 +90,8 @@ class CentralManagerViewController: UIViewController, CBCentralManagerDelegate, 
         print(service.characteristics!.count)
         for char in service.characteristics!{
             print(char)
-            //print(String(data:char.value!, encoding:NSUTF8StringEncoding))
-            peripheral.readValueForCharacteristic(char)
+            peripheral.setNotifyValue(true, forCharacteristic: char)
+            //peripheral.readValueForCharacteristic(char)
         }
         
         /*if let char = service.characteristics?.first{
@@ -97,6 +99,14 @@ class CentralManagerViewController: UIViewController, CBCentralManagerDelegate, 
             print(char.UUID)
             peripheral.readValueForCharacteristic(char)
         }*/
+    }
+    
+    func peripheral(peripheral: CBPeripheral, didUpdateNotificationStateForCharacteristic characteristic: CBCharacteristic, error: NSError?) {
+        if error != nil{
+            print("error")
+        } else {
+            print("notifs changeed")
+        }
     }
     
     func peripheral(peripheral: CBPeripheral, didUpdateValueForCharacteristic characteristic: CBCharacteristic, error: NSError?) {
@@ -151,4 +161,48 @@ class CentralManagerViewController: UIViewController, CBCentralManagerDelegate, 
         presentViewController(alert, animated: true, completion: nil)
     }
     
+    func retrieveNameFromParse(device: String){
+        let query = PFQuery(className: "BluetoothConnection")
+        query.getObjectInBackgroundWithId(PARSE_OBJECT_ID){
+            (connectObject: PFObject?, error: NSError?) -> Void in
+            if let obj = connectObject {
+                if obj["device"] as? String == device {
+                    if let connectionUsername = obj["username"] as? String{
+                        let query2 = PFUser.query()
+                        query2!.whereKey("username", equalTo: connectionUsername)
+                        query2!.findObjectsInBackgroundWithBlock{
+                            (objects: [PFObject]?, error: NSError?) -> Void in
+                            if let newContact = objects!.first as? PFUser {
+                                if let arr = self.user!.objectForKey("contacts") as? Array<PFUser>{
+                                    if arr.contains(newContact) {
+                                        let alert = UIAlertController.createAlert("Error", withMessage:"This user is in your contact list already!")
+                                        self.presentViewController(alert, animated: true, completion: nil)
+                                        return
+                                    }
+                                }
+                                
+                                self.user!.addObject(newContact, forKey: "contacts")
+                                self.user!.saveInBackgroundWithBlock{
+                                    (success: Bool, error: NSError?) in
+                                    if success{
+                                        var newConnection = ""
+                                        if let contactName = newContact["name"] as? String{
+                                            newConnection = contactName
+                                        } else {
+                                            newConnection = newContact["username"] as! String
+                                        }
+                                        let alert = UIAlertController.createAlert("New Connection!", withMessage:"\(newConnection) is now in your contacts list.")
+                                        self.presentViewController(alert, animated: true, completion: nil)
+                                        return
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+       // let alert = UIAlertController.createAlert("Error", withMessage: "Connection request failed. Please retry.")
+       // self.presentViewController(alert, animated: true, completion: nil)
+    }
 }
