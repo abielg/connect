@@ -68,8 +68,10 @@ class SearchTableViewController: UITableViewController {
         
         if let contactsArray = user!.objectForKey("contacts") where contactsArray.containsObject(userInfo){
             cell.connectButton.hidden = true
+            cell.connectedLabel.hidden = false
         } else {
             cell.connectedLabel.hidden = true
+            cell.connectButton.hidden = false
         }
         
         cell.connectButton.addTarget(self, action: "newConnectionAlert", forControlEvents: .TouchUpInside)

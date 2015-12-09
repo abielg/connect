@@ -18,6 +18,8 @@ class PeripheralViewController: UIViewController, CBPeripheralManagerDelegate {
     let user = PFUser.currentUser()
     let PARSE_OBJECT_ID = "ukx0xvH6vt"
     
+    @IBOutlet weak var transmittingLabel: UILabel!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationItem.title = "Create Connection"
@@ -26,6 +28,7 @@ class PeripheralViewController: UIViewController, CBPeripheralManagerDelegate {
     
     override func viewWillDisappear(animated: Bool) {
         peripheralManager?.stopAdvertising()
+        transmittingLabel.hidden = true
     }
     
     func peripheralManagerDidUpdateState(peripheral: CBPeripheralManager) {
@@ -37,15 +40,14 @@ class PeripheralViewController: UIViewController, CBPeripheralManagerDelegate {
         }
         
         if peripheral.state == CBPeripheralManagerState.PoweredOn{
-           // if let data = sentData{
-                let service = CBMutableService(type: SERVICE_UUID, primary: true)
-                let characteristic = CBMutableCharacteristic(type: CHARACTERISTIC_UUID, properties: CBCharacteristicProperties.Notify, value: nil, permissions: CBAttributePermissions.Readable)
-                service.characteristics = [characteristic]
-                peripheralManager!.addService(service)
-                peripheralManager!.startAdvertising([CBAdvertisementDataServiceUUIDsKey:[SERVICE_UUID]])
-                postNameToParse()
-                print("service advertised")
-          //  }
+            let service = CBMutableService(type: SERVICE_UUID, primary: true)
+            let characteristic = CBMutableCharacteristic(type: CHARACTERISTIC_UUID, properties: CBCharacteristicProperties.Notify, value: nil, permissions: CBAttributePermissions.Readable)
+            service.characteristics = [characteristic]
+            peripheralManager!.addService(service)
+            peripheralManager!.startAdvertising([CBAdvertisementDataServiceUUIDsKey:[SERVICE_UUID]])
+            postNameToParse()
+            print("service advertised")
+            transmittingLabel.hidden = false
         }
     }
 
@@ -57,7 +59,8 @@ class PeripheralViewController: UIViewController, CBPeripheralManagerDelegate {
         }
     }
     
-    
+    //The "create connection" device posts its current user's username to Parse so that the "seek connection"
+    //device can retrieve it upon pairing and connect with that user.
     func postNameToParse(){
         let query = PFQuery(className: "BluetoothConnection")
         query.getObjectInBackgroundWithId(PARSE_OBJECT_ID){

@@ -21,6 +21,9 @@ class CentralManagerViewController: UIViewController, CBCentralManagerDelegate, 
     let user = PFUser.currentUser()
     let PARSE_OBJECT_ID = "ukx0xvH6vt"
     
+    @IBOutlet weak var seekingLabel: UILabel!
+    
+    
     override func viewDidLoad(){
         super.viewDidLoad()
         self.navigationItem.title = "Seek Connection"
@@ -29,6 +32,7 @@ class CentralManagerViewController: UIViewController, CBCentralManagerDelegate, 
     
     override func viewWillDisappear(animated: Bool) {
         centralManager.stopScan()
+        seekingLabel.hidden = true
     }
     
     func centralManagerDidUpdateState(central: CBCentralManager) {
@@ -48,6 +52,7 @@ class CentralManagerViewController: UIViewController, CBCentralManagerDelegate, 
             presentViewController(alert, animated: true, completion: nil)
         case .PoweredOn:
             centralManager.scanForPeripheralsWithServices([SERVICE_UUID], options: nil)
+            seekingLabel.hidden = false
             print("scanning started")
         }
     }
@@ -84,6 +89,7 @@ class CentralManagerViewController: UIViewController, CBCentralManagerDelegate, 
     }
     
     func centralManager(central: CBCentralManager, didFailToConnectPeripheral peripheral: CBPeripheral, error: NSError?) {
+        seekingLabel.hidden = true
         removeConnections()
         let alert = UIAlertController.createAlert("Error", withMessage: "Failed to connect to device.")
         presentViewController(alert, animated: true, completion: nil)
@@ -121,6 +127,7 @@ class CentralManagerViewController: UIViewController, CBCentralManagerDelegate, 
                                         }
                                         let alert = UIAlertController.createAlert("New Connection!", withMessage:"\(newConnection) is now in your contacts list.")
                                         self.presentViewController(alert, animated: true, completion: nil)
+                                        self.seekingLabel.hidden = true
                                         return
                                     }
                                 }

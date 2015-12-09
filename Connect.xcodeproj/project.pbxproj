@@ -50,6 +50,7 @@
 		B2C8E6071C1504FF00065F99 /* CoreBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B2C8E6061C1504FF00065F99 /* CoreBluetooth.framework */; };
 		B2C8E6091C150D2B00065F99 /* PeripheralViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2C8E6081C150D2B00065F99 /* PeripheralViewController.swift */; };
 		B2C8E60B1C150D3F00065F99 /* CentralManagerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2C8E60A1C150D3F00065F99 /* CentralManagerViewController.swift */; };
+		B2EDFB6A1C180618000BD6C4 /* connect_title.png in Resources */ = {isa = PBXBuildFile; fileRef = B2EDFB691C180618000BD6C4 /* connect_title.png */; };
 		B2FCE3491C0EBB8F00594687 /* connect_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = B2FCE3451C0EBB8F00594687 /* connect_icon.png */; };
 		B2FCE34A1C0EBB8F00594687 /* search_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = B2FCE3461C0EBB8F00594687 /* search_icon.png */; };
 		B2FCE34B1C0EBB8F00594687 /* profile_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = B2FCE3471C0EBB8F00594687 /* profile_icon.png */; };
@@ -103,6 +104,7 @@
 		B2C8E6061C1504FF00065F99 /* CoreBluetooth.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreBluetooth.framework; path = System/Library/Frameworks/CoreBluetooth.framework; sourceTree = SDKROOT; };
 		B2C8E6081C150D2B00065F99 /* PeripheralViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PeripheralViewController.swift; path = ../PeripheralViewController.swift; sourceTree = "<group>"; };
 		B2C8E60A1C150D3F00065F99 /* CentralManagerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CentralManagerViewController.swift; path = ../CentralManagerViewController.swift; sourceTree = "<group>"; };
+		B2EDFB691C180618000BD6C4 /* connect_title.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = connect_title.png; sourceTree = "<group>"; };
 		B2FCE3451C0EBB8F00594687 /* connect_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = connect_icon.png; sourceTree = "<group>"; };
 		B2FCE3461C0EBB8F00594687 /* search_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = search_icon.png; sourceTree = "<group>"; };
 		B2FCE3471C0EBB8F00594687 /* profile_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = profile_icon.png; sourceTree = "<group>"; };
@@ -220,6 +222,7 @@
 		B2C8E5E51C12599000065F99 /* Small Social Media */ = {
 			isa = PBXGroup;
 			children = (
+				B2EDFB691C180618000BD6C4 /* connect_title.png */,
 				B2C8E5E61C1259D700065F99 /* address_icon_small.png */,
 				B2C8E5F61C127AE900065F99 /* facebook_icon_small.png */,
 				B2C8E5E81C1259D700065F99 /* mail_icon_small.png */,
@@ -319,6 +322,7 @@
 				B281AFD01C0DA467003C4290 /* facebook_icon.png in Resources */,
 				B281AF9B1C0D7DF1003C4290 /* Assets.xcassets in Resources */,
 				B2C8E5F01C1259D700065F99 /* snpachat_icon_small.png in Resources */,
+				B2EDFB6A1C180618000BD6C4 /* connect_title.png in Resources */,
 				B2541E5B1C109DCF0040D0FC /* address_icon.png in Resources */,
 				B2FCE34B1C0EBB8F00594687 /* profile_icon.png in Resources */,
 				B2FCE34C1C0EBB8F00594687 /* contacts_icon.png in Resources */,

@@ -61,7 +61,7 @@ class ContactDetailTableViewController: UITableViewController {
     func fillInCellInfo(cell: UITableViewCell, accountString: String){
         if let account = user![accountString] as? String {
             cell.textLabel!.text = account
-            if account != "snapchat" && account != "facebook" && account != "twitter"{
+            if accountString != "snapchat" && accountString != "facebook" && accountString != "twitter"{
                 cell.accessoryType = .DisclosureIndicator
             }
         } else if accountString == "address" && user!["address"] != nil{
@@ -82,16 +82,6 @@ class ContactDetailTableViewController: UITableViewController {
                     phoneNumberSelected(cellText)
                 case (1,1):
                     emailSelected()
-                case(2,0):
-                    if let fbAccount = user!["facebook"] as? String {
-                        let fbURL = NSURL(string: "http://www.facebook.com/\(fbAccount)")
-                        if UIApplication.sharedApplication().canOpenURL(fbURL!){
-                            UIApplication.sharedApplication().openURL(fbURL!)
-                        } else {
-                            let error = UIAlertController.createAlert("Error", withMessage: "Could not open Facebook profile.")
-                            presentViewController(error, animated: true, completion: nil)
-                        }
-                    }
                 case(3,0):
                     performSegueWithIdentifier("showContactAddress", sender: nil)
                     
@@ -152,11 +142,17 @@ class ContactDetailTableViewController: UITableViewController {
         let contact = CNMutableContact()
         contact.contactType = CNContactType.Person
         //name
-        contact.givenName = (user!["name"] as? String)!
+        if let name = user!["name"] as? String where name != ""{
+            contact.givenName = name
+        } else {
+            contact.givenName = user!["username"] as! String
+        }
         //phone
-        let number = CNPhoneNumber(stringValue: user!["phone"] as! String)
-        let phoneCNLV = CNLabeledValue(label: CNLabelPhoneNumberMobile, value: number)
-        contact.phoneNumbers = [phoneCNLV]
+        if let phone = user!["phone"] as? String {
+            let number = CNPhoneNumber(stringValue: phone)
+            let phoneCNLV = CNLabeledValue(label: CNLabelPhoneNumberMobile, value: number)
+            contact.phoneNumbers = [phoneCNLV]
+        }
         //picture
         let data = UIImagePNGRepresentation(profilePicture.image!)
         contact.imageData = NSData(data: data!)

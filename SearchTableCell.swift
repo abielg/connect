@@ -25,8 +25,7 @@ class SearchTableCell: UITableViewCell {
     
     @IBOutlet weak var connectButton: UIButton!
     @IBOutlet weak var connectedLabel: UILabel!
-
-    
+        
     @IBAction func connect(sender: AnyObject) {
         let query = PFUser.query()
         query?.whereKey("username", equalTo: contactUsername)
