@@ -9,6 +9,8 @@ import UIKit
 import CoreBluetooth
 import Parse
 
+//Referenced to build this class: https://developer.apple.com/library/ios/documentation/NetworkingInternetWeb/Conceptual/CoreBluetooth_concepts/PerformingCommonPeripheralRoleTasks/PerformingCommonPeripheralRoleTasks.html#//apple_ref/doc/uid/TP40013257-CH4-SW1
+
 class PeripheralViewController: UIViewController, CBPeripheralManagerDelegate {
     var peripheralManager: CBPeripheralManager?
     
@@ -32,7 +34,6 @@ class PeripheralViewController: UIViewController, CBPeripheralManagerDelegate {
     }
     
     func peripheralManagerDidUpdateState(peripheral: CBPeripheralManager) {
-        print("got here")
         if peripheral.state != CBPeripheralManagerState.PoweredOn{
             let error = UIAlertController.createAlert("Error", withMessage: "Please turn on and enable Bluetooth for this device.")
             presentViewController(error, animated: true, completion: nil)

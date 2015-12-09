@@ -41,8 +41,6 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
 
     }
     
-    
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         mapView.delegate = self

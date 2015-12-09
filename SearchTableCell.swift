@@ -36,8 +36,6 @@ class SearchTableCell: UITableViewCell {
             } else if let contact = objects!.first as? PFUser{
                 self.user!.addObject(contact, forKey: "contacts")
                 PFUser.saveUserToParse(self.user!)
-                //contact.addObject(self.user!, forKey: "contacts")
-                //PFUser.saveUserToParse(contact)  MIGHT IMPLEMENT LATER
             }
         }
         connectButton.hidden = true

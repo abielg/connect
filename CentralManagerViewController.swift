@@ -10,6 +10,8 @@ import UIKit
 import CoreBluetooth
 import Parse
 
+//Referenced to build this class: https://developer.apple.com/library/ios/documentation/NetworkingInternetWeb/Conceptual/CoreBluetooth_concepts/PerformingCommonCentralRoleTasks/PerformingCommonCentralRoleTasks.html#//apple_ref/doc/uid/TP40013257-CH3-SW1
+
 class CentralManagerViewController: UIViewController, CBCentralManagerDelegate, CBPeripheralDelegate {
     
     var discoveredPeripheral: CBPeripheral?
@@ -95,6 +97,8 @@ class CentralManagerViewController: UIViewController, CBCentralManagerDelegate, 
         presentViewController(alert, animated: true, completion: nil)
     }
     
+    
+    // Really long method due to the closures from querying and saving users to parse
     func retrieveNameFromParse(device: String){
         let query = PFQuery(className: "BluetoothConnection")
         query.getObjectInBackgroundWithId(PARSE_OBJECT_ID){
@@ -137,7 +141,5 @@ class CentralManagerViewController: UIViewController, CBCentralManagerDelegate, 
                 }
             }
         }
-       // let alert = UIAlertController.createAlert("Error", withMessage: "Connection request failed. Please retry.")
-       // self.presentViewController(alert, animated: true, completion: nil)
     }
 }

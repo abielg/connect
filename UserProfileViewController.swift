@@ -140,7 +140,6 @@ class UserProfileViewController: UIViewController, UITextFieldDelegate, UIImageP
                 PFUser.saveUserToParse(user!)
             }
         }
-
     }
     
     func textFieldShouldReturn(textField: UITextField) -> Bool {
@@ -258,16 +257,12 @@ class UserProfileViewController: UIViewController, UITextFieldDelegate, UIImageP
             user!["profilePicture"] = imageFile
             PFUser.saveUserToParse(user!)
         }
-
-        
         dismissViewControllerAnimated(true, completion: nil)
     }
     
     func imagePickerControllerDidCancel(uiipc: UIImagePickerController) {
         dismissViewControllerAnimated(true, completion: nil)
     }
-    
-    
 }
 
 extension PFUser{
