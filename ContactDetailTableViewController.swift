@@ -61,7 +61,9 @@ class ContactDetailTableViewController: UITableViewController {
     func fillInCellInfo(cell: UITableViewCell, accountString: String){
         if let account = user![accountString] as? String {
             cell.textLabel!.text = account
-            cell.accessoryType = .DisclosureIndicator
+            if account != "snapchat" && account != "facebook" && account != "twitter"{
+                cell.accessoryType = .DisclosureIndicator
+            }
         } else if accountString == "address" && user!["address"] != nil{
             cell.textLabel!.text = "View Address"
             cell.accessoryType = .DisclosureIndicator
@@ -180,7 +182,6 @@ class ContactDetailTableViewController: UITableViewController {
         let alert = UIAlertController(title: "\(nameLabel.text!)'s email", message: emailCell.textLabel!.text, preferredStyle: .Alert)
         alert.addAction(UIAlertAction(title: "Send Email", style: .Default){
             (action: UIAlertAction) -> Void in
-                //let url = NSURL(string: "mailto:\(self.emailCell.textLabel!.text)")
             if let email = self.emailCell.textLabel!.text {
                 let url = NSURL(string: "mailto:\(email)")
                 UIApplication.sharedApplication().openURL(url!)

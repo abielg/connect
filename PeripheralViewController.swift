@@ -11,8 +11,6 @@ import Parse
 
 class PeripheralViewController: UIViewController, CBPeripheralManagerDelegate {
     var peripheralManager: CBPeripheralManager?
-    let sentData = NSString(string: "hi").dataUsingEncoding(NSUTF8StringEncoding)
-    let dataIndex = NSInteger()
     
     let SERVICE_UUID = CBUUID(string: "BC585695-CB18-4AEF-98E3-54CF0A2D08A9")
     let CHARACTERISTIC_UUID = CBUUID(string:"DDB11B18-029E-4431-BA2B-3C6C32E44FA5")
@@ -24,7 +22,6 @@ class PeripheralViewController: UIViewController, CBPeripheralManagerDelegate {
         super.viewDidLoad()
         self.navigationItem.title = "Create Connection"
         self.peripheralManager = CBPeripheralManager(delegate: self, queue: nil, options: nil)
-        //sentData = ("hi").dataUsingEncoding(NSUTF8StringEncoding)
     }
     
     override func viewWillDisappear(animated: Bool) {
@@ -51,12 +48,7 @@ class PeripheralViewController: UIViewController, CBPeripheralManagerDelegate {
           //  }
         }
     }
-    
-    func peripheralManager(peripheral: CBPeripheralManager, central: CBCentral, didSubscribeToCharacteristic characteristic: CBCharacteristic) {
-        print("subscribed bitch")
-    }
-    
-    
+
     func peripheralManager(peripheral: CBPeripheralManager, didAddService service: CBService, error: NSError?) {
         if error != nil {
             print(error?.description)
@@ -65,9 +57,6 @@ class PeripheralViewController: UIViewController, CBPeripheralManagerDelegate {
         }
     }
     
-    func peripheralManager(peripheral: CBPeripheralManager, didReceiveReadRequest request: CBATTRequest) {
-        print("read request")
-    }
     
     func postNameToParse(){
         let query = PFQuery(className: "BluetoothConnection")

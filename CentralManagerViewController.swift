@@ -20,18 +20,11 @@ class CentralManagerViewController: UIViewController, CBCentralManagerDelegate, 
     
     let user = PFUser.currentUser()
     let PARSE_OBJECT_ID = "ukx0xvH6vt"
-    var newConnection: String?{
-        didSet{
-            let alert = UIAlertController.createAlert("Connected with \(newConnection!)")
-            presentViewController(alert, animated: true, completion: nil)
-        }
-    }
     
     override func viewDidLoad(){
         super.viewDidLoad()
         self.navigationItem.title = "Seek Connection"
         centralManager.delegate = self
-        print("viewLoaded")
     }
     
     override func viewWillDisappear(animated: Bool) {
@@ -80,73 +73,8 @@ class CentralManagerViewController: UIViewController, CBCentralManagerDelegate, 
         }
     }
     
-    func peripheral(peripheral: CBPeripheral, didDiscoverCharacteristicsForService service: CBService, error: NSError?) {
-        print("discovered characteristic")
-        if error != nil{
-            print(error?.description)
-            return
-        }
-        //might want to check for the correct UUID
-        print(service.characteristics!.count)
-        for char in service.characteristics!{
-            print(char)
-            peripheral.setNotifyValue(true, forCharacteristic: char)
-            //peripheral.readValueForCharacteristic(char)
-        }
-        
-        /*if let char = service.characteristics?.first{
-            print("unwrapped characteristic")
-            print(char.UUID)
-            peripheral.readValueForCharacteristic(char)
-        }*/
-    }
-    
-    func peripheral(peripheral: CBPeripheral, didUpdateNotificationStateForCharacteristic characteristic: CBCharacteristic, error: NSError?) {
-        if error != nil{
-            print("error")
-        } else {
-            print("notifs changeed")
-        }
-    }
-    
-    func peripheral(peripheral: CBPeripheral, didUpdateValueForCharacteristic characteristic: CBCharacteristic, error: NSError?) {
-        if let data = characteristic.value{
-            print("data unwrapped")
-            newConnection = String(data: data, encoding:NSUTF8StringEncoding)
-        }
-    }
-    
-    //newConnection = String(data: data, encoding:NSUTF8StringEncoding)
-
-    
-    
-    /*
-    func peripheral(peripheral: CBPeripheral, didUpdateValueForCharacteristic characteristic: CBCharacteristic, error: NSError?) {
-        if error != nil {
-            print(error?.description)
-            return
-        }
-        
-        newConnection = String(data: characteristic.value!, encoding: NSUTF8StringEncoding)
-        peripheral.setNotifyValue(false, forCharacteristic: characteristic)
-        centralManager.cancelPeripheralConnection(peripheral)
-        let alert = UIAlertController.createAlert("Connected to \(newConnection)")
-        presentViewController(alert, animated: true, completion: nil)
-
-    }
-*/
-  
-    /*
-    func peripheral(peripheral: CBPeripheral, didUpdateNotificationStateForCharacteristic characteristic: CBCharacteristic, error: NSError?) {
-        if !characteristic.isNotifying{
-            centralManager.cancelPeripheralConnection(peripheral)
-        }
-    }
-*/
-    
     func centralManager(central: CBCentralManager, didDisconnectPeripheral peripheral: CBPeripheral, error: NSError?) {
         discoveredPeripheral = nil
-        print("connection lost")
     }
     
     func removeConnections(){
