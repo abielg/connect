@@ -1,0 +1,44 @@
+user:abielg (Gutierrez, Abiel)
+
+/////// SECOND SUBMISSION -- IDENTICAL TO THE FIRST ONE EXCEPT FOR THE README (PAUL TOLD ME TO DO THIS) ///////
+
+My own scoring
+
+API's:
+TableView API (2 points): Implemented three different table views. A simple one with dynamic content, a customized one with section titles and customized cells, and a dynamic one without sections with customized cells.
+
+Storyboard Design (1 point): Use of tab bar and navigation controllers.
+
+Controls API (2 points): Heavy use of labels, text fields, buttons in different shapes, sizes, and colors.
+
+Segue API (1 point): Use of hard-coded and storyboard segues.
+
+Autolayout(2 points): Used in every view to maintain UI form. Also used different classes (compact & regular width) for the Search table view.
+
+3rd Party Integration(4 points, including 2 depth points): heavy implementation of the Parse framework to query, retrieve, save user data (strings, images, location) and contacts. Also has user log in and sign ups.
+
+Location Services API (2 points): Recording of user location by displaying it in a map, with customized annotation views, and then display it to contacts.
+
+ImagePicker API (2 points): You can either take a picture or choose one from the library to add to your profile.
+
+CoreBluetooth (2*2 = 4 points): Implements peripheral and control manager functions to pair devices via Bluetooth and trigger an exchange of user data through Parse.
+
+Contacts Kit (2 *2 = 4 points): Creates CNMutableContacts upon user requrest with contact's information and sends save requests to save them in the phone.
+
+URL API (1 point): Use of NSURL to enable user to call phone number or send an email from the app if a contact has provided that information.
+
+AlertView API (2 points): Implemented many alerts, both alert and action sheet style, with and without messages.
+
+UI Design: 3 points
+Creativity: 3 points
+Coding Style: 3 points
+Stability: 2 points
+
+Total Points: 38
+
+
+Instructions to test app:
+
+I think the best way to test it is to create a new account -- you simply choose a username and password and press "sign in". You can then fill in all of your information on the first view that is presented (click on the logos) and browse for people to connect with in the "Search" tab. To test the "Contacts" tab, connect with the user "Abiel G" because I filled in all of the information there, so you'll be able to test out the detailed table view controller. To test bluetooth, just do it with both devices. Only the "seeker" will get the new contact connection (didn't want to spend more time coding backend stuff that wouldn't give me credit), and you can verify that this happened with the alertview that pops up and by seeing the new connection in the "Contacts" tab.
+
+Note: when adding your address to your account in the map view, make sure to press the "Save as Address" button, or else nothing will be saved.

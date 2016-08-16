@@ -78,8 +78,7 @@ class SearchTableViewController: UITableViewController {
         
         return cell
     }
-    
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+            override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return userArray.count
     }
     
